@@ -1,26 +1,26 @@
-# Security policy
+# 安全与使用边界
 
-This independent prototype uses only fictional enterprise records and public policy metadata. Do not upload real bank, taxpayer, customer or personal financial data. No real lending or tax decision is made.
+本独立原型仅使用虚构企业及公开政策资料。请勿上传真实银行、纳税人、客户或个人金融数据。系统不作实际授信或税务决定。
 
-## Credentials and optional live mode
+## 凭据与实时模式
 
-- Server credentials belong in environment variables or local `.env`, never in frontend code, JSON artifacts, Git, screenshots or logs.
-- `NEXT_PUBLIC_*` values are visible to visitors. Only the optional public API URL belongs there.
-- The public static demo has no live-model endpoint. Its complete primary journeys work without credentials.
-- The local LLM adapter has a request timeout, two-request concurrency limit, process-local rate limits, an HTTPS/local-only provider URL check, bounded output schema and evidence-ID validation. Provider bodies are not returned in errors.
-- Schema and ID validation do not establish semantic correctness. Live outputs require human review.
-- These controls do not constitute production authentication, distributed abuse protection or a compliance programme. Put a real authentication and cost-control gateway in front of any externally exposed paid-model API.
+- 服务端凭据存入环境变量或本机 `.env`，不得写入前端、JSON、Git、截图或日志。
+- `NEXT_PUBLIC_*` 对访客可见，只能填写可选的公开 API 地址。
+- 公开静态演示没有实时模型接口，主要流程不需要凭据。
+- 本地适配器设置超时、两请求并发限制、进程内限流、HTTPS／本机 HTTP 地址检查、有限长度结构及证据编号核验；错误不暴露上游正文。
+- 结构和编号核验不能证明语义正确，实时输出须人工审查。
+- 以上不构成生产认证、分布式防滥用或完整合规体系。对外开放付费模型 API 前，需要认证及成本控制网关。
 
-## Input and deployment boundaries
+## 输入与部署
 
-FastAPI validates identifier formats, query lengths, nonnegative tax-calculation inputs and finite values. CORS is restricted to configured origins. Synthetic artifacts are read-only; the API does not accept arbitrary source URLs, enterprise uploads or shell execution. The API container runs as a non-root user and Compose binds its port to localhost.
+FastAPI 校验编号格式、问题长度、非负测算输入及有限数值；CORS 限制于配置来源。合成产物只读，不接受任意来源地址、企业上传或命令执行。API 容器使用非 root 用户，Compose 将 API 端口仅绑定本机。
 
-`requirements.lock.txt` and `package-lock.json` fix dependency versions. Review dependency advisories before extending or deploying the API in production. The hosted demo serves static assets and no Next.js application server. During the initial audit, `npm audit --omit=dev` reports no production advisories; development dependency findings (if any) are kept visible rather than hidden by forcing incompatible downgrades.
+`requirements.lock.txt` 与 `package-lock.json` 固定依赖。扩展或投入生产前须审查依赖公告。托管演示仅提供静态资源，不运行 Next.js 应用服务器。初始审计的 `npm audit --omit=dev` 无生产依赖公告；开发依赖问题保留可见，未通过强制不兼容降级隐藏。
 
-## Reporting
+## 问题报告
 
-Please report a security issue through the repository's private vulnerability reporting mechanism if available, or contact the author using the public academic contact on the research blog. Do not post credentials or real financial data in public issues.
+如仓库支持私密漏洞报告，请使用该渠道；也可通过作者研究博客的公开学术联系方式联系。请勿在公开问题中提交凭据或真实金融资料。
 
-## Data and decision integrity
+## 判断完整性
 
-Tax alerts are reconciliation signals, not allegations. Policy matches are candidate opportunities, not eligibility certifications. Scores use explicit designer-defined weights. Research metrics are generated from synthetic labels and cannot establish empirical or causal evidence. No affiliation with any bank is claimed.
+涉税提示是勾稽信号，不是违法指控；政策匹配是候选机会，不是资格认证；评分使用公开设计权重。合成研究指标不能建立真实实证或因果证据。本项目与任何银行均无隶属关系。

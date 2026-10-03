@@ -25,41 +25,41 @@ export function PolicyCard({
       <p>{p.benefits}</p>
       {evidence && (
         <div className="evidence-inline">
-          <strong>Enterprise evidence</strong>
+          <strong>企业依据</strong>
           <p>{evidence}</p>
         </div>
       )}
       <details>
-        <summary>Conditions & source record</summary>
+        <summary>适用条件与来源记录</summary>
         <ul>
           {p.conditions.map((x) => (
             <li key={x}>{x}</li>
           ))}
         </ul>
         <dl className="record">
-          <dt>Issuer</dt>
+          <dt>发布部门</dt>
           <dd>{p.issuer}</dd>
-          <dt>Reference</dt>
+          <dt>文号 / 依据</dt>
           <dd>{p.reference}</dd>
-          <dt>Published</dt>
+          <dt>发布日期</dt>
           <dd>{p.publication_date}</dd>
-          <dt>Effective</dt>
-          <dd>{p.effective_date || "Not specified in this report"}</dd>
-          <dt>Expiry / horizon</dt>
-          <dd>{p.expiry_date || "No end date stated in this record"}</dd>
-          <dt>Source type</dt>
+          <dt>生效日期</dt>
+          <dd>{p.effective_date || "该报道未规定"}</dd>
+          <dt>到期日 / 适用期限</dt>
+          <dd>{p.expiry_date || "该记录未载明终止日期"}</dd>
+          <dt>来源类型</dt>
           <dd>{p.source_kind}</dd>
-          <dt>Source checked</dt>
+          <dt>来源核验日期</dt>
           <dd>{p.verified_on}</dd>
         </dl>
       </details>
       <div className="policy-footer">
         <span>
-          {p.effective_date || "Directional report"}
+          {p.effective_date || "工作方向报道"}
           {p.expiry_date ? ` — ${p.expiry_date}` : ""}
         </span>
         <a href={p.original_source} target="_blank" rel="noreferrer">
-          Original source <ExternalLink size={14} />
+          政策原文 <ExternalLink size={14} />
         </a>
       </div>
     </article>
@@ -75,14 +75,14 @@ export function PolicyPage({ d }: { d: Dataset }) {
   return (
     <>
       <SectionHead
-        label="TAX POLICY AGENT"
-        title="Policy intelligence"
-        description="A deliberately small, dated library of official sources. Conclusions stay inside the evidence."
+        label="税收政策 Agent"
+        title="税收政策智能"
+        description="精选官方来源并标明时间范围，政策提示仅覆盖已有证据。"
       />
       <section className="panel policy-query">
         <div className="panel-head">
-          <h2>Ask the curated policy library</h2>
-          <Badge>Grounded demo retrieval</Badge>
+          <h2>查询政策资料库</h2>
+          <Badge>基于来源的演示检索</Badge>
         </div>
         <form
           onSubmit={(e) => {
@@ -92,7 +92,7 @@ export function PolicyPage({ d }: { d: Dataset }) {
           }}
         >
           <label htmlFor="policy-question">
-            Enterprise context or policy question · English / 中文
+            企业背景或政策问题（支持中文与英文）
           </label>
           <div className="query-row">
             <input
@@ -102,12 +102,12 @@ export function PolicyPage({ d }: { d: Dataset }) {
               onChange={(e) => setQuestion(e.target.value)}
               required
             />
-            <button className="button">Find policy sources</button>
+            <button className="button">检索政策来源</button>
           </div>
         </form>
         <div className="prompt-chips">
           {[
-            "R&D super-deduction",
+            "研发费用加计扣除",
             "小型微利企业所得税优惠",
             "2026 小规模增值税",
             "广东银税互动",
@@ -126,29 +126,26 @@ export function PolicyPage({ d }: { d: Dataset }) {
         </div>
         <div className="policy-response">
           <Badge tone={found.length ? "teal" : "amber"}>
-            {found.length
-              ? "Supported source matches"
-              : "Insufficient evidence"}
+            {found.length ? "找到相关来源" : "证据不足"}
           </Badge>
           <p>
             {found.length
-              ? "Potential policies to verify. Review applicability, effective dates and original sources before use."
-              : "The curated library has no supported answer. Provide a jurisdiction, tax type or policy reference. No rule is inferred."}
+              ? "以下为待核验的政策线索。使用前请审查适用条件、有效日期及政策原文。"
+              : "现有资料库没有足够依据作答。请补充地区、税种或政策文号，系统不会推断缺失的规定。"}
           </p>
           <span className="micro">
-            Deterministic keyword retrieval · Policy snapshot{" "}
-            {d.meta.policy_as_of} · Reports are distinguished from statutory
-            policies.
+            关键词确定性检索 · 政策快照 {d.meta.policy_as_of} ·
+            官方报道与法定政策分别标识。
           </span>
         </div>
       </section>
       <div className="section-inline">
         <h2>
-          {all ? "Full source library" : "Policy sources"}{" "}
+          {all ? "全部来源记录" : "政策来源"}{" "}
           <span className="count">{found.length}</span>
         </h2>
         <button className="text-button" onClick={() => setAll(!all)}>
-          {all ? "Return to answer" : "Browse all 8 records"}
+          {all ? "返回检索结果" : "查看全部 8 条记录"}
         </button>
       </div>
       <div className="policy-grid">
@@ -157,9 +154,8 @@ export function PolicyPage({ d }: { d: Dataset }) {
         ))}
       </div>
       <Notice>
-        FY2025 financial records and the October 2026 policy snapshot serve
-        different purposes. Future leads are not applied retrospectively. Batch
-        deadlines and current programme availability require review.
+        2025 年度财务数据与 2026 年 10
+        月政策快照用途不同，未来政策线索不追溯用于历史年度。批次期限与当前项目开放情况须另行核验。
       </Notice>
     </>
   );

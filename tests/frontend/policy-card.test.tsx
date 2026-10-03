@@ -7,13 +7,13 @@ afterEach(cleanup);
 it("renders source, eligibility conditions and evidence as separate inspectable facts", () => {
   const p = data.policies[0];
   render(
-    <PolicyCard p={p} status="Candidate" evidence="Ledger review required" />,
+    <PolicyCard p={p} status="候选机会" evidence="Ledger review required" />,
   );
-  expect(screen.getByRole("link", { name: "Original source" })).toHaveAttribute(
+  expect(screen.getByRole("link", { name: "政策原文" })).toHaveAttribute(
     "href",
     p.original_source,
   );
   expect(screen.getByText("Ledger review required")).toBeInTheDocument();
-  expect(screen.getByText("Candidate")).toBeInTheDocument();
+  expect(screen.getByText("候选机会")).toBeInTheDocument();
   expect(screen.getByText(p.conditions[0])).toBeInTheDocument();
 });

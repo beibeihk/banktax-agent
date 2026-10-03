@@ -41,5 +41,5 @@ def test_live_mode_without_credentials(monkeypatch):
     monkeypatch.setenv("ENABLE_LIVE_AI", "false")
     r = client.post("/api/enterprises/P-001/live-brief")
     assert r.status_code == 503
-    assert "not configured" in r.json()["detail"]
+    assert "尚未配置" in r.json()["detail"]
     assert client.get("/api/health").headers["X-Content-Type-Options"] == "nosniff"

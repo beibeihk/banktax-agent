@@ -1,5 +1,7 @@
 # BankTax-Agent
 
+The public website defaults to Simplified Chinese, including enterprise briefs, policy conditions, risk explanations and charts. The walkthrough, data dictionary and research protocol are also provided in Chinese. This README remains available for English readers.
+
 **Enterprise Tax Intelligence & Bank-Tax Risk Agent**
 
 Transforming tax, financial and innovation signals into explainable intelligence for commercial banking.

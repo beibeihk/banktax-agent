@@ -11,6 +11,7 @@ import {
   Cpu,
   Landmark,
 } from "lucide-react";
+import { label, companyName, companyMark } from "@/lib/labels";
 import { filterEnterprises, money, pct } from "@/lib/domain";
 import type { Dataset, Enterprise } from "@/lib/domain";
 import {
@@ -39,18 +40,22 @@ export function EnterpriseTable({
     <section className="panel enterprise-table">
       <div className="panel-head">
         <h2>
-          Enterprise portfolio <span className="count">{filtered.length}</span>
+          企业客户列表 <span className="count">{filtered.length}</span>
         </h2>
-        <a className="subtle-link" href="/data/enterprise-panel.csv" download>
-          <Download size={15} /> Export panel
+        <a
+          className="subtle-link"
+          href="/data/enterprise-panel.zh-CN.csv"
+          download
+        >
+          <Download size={15} /> 导出中文数据
         </a>
       </div>
       <div className="table-toolbar">
         <label className="search">
           <Search size={17} />
           <input
-            aria-label="Search enterprises"
-            placeholder="Search enterprise, city or ID…"
+            aria-label="搜索企业"
+            placeholder="搜索企业、城市、行业或编号…"
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
@@ -61,44 +66,46 @@ export function EnterpriseTable({
         <label className="select-wrap">
           <SlidersHorizontal size={15} />
           <select
-            aria-label="Filter by industry"
+            aria-label="按行业筛选"
             value={industry}
             onChange={(e) => {
               setIndustry(e.target.value);
               reset();
             }}
           >
-            <option value="">All industries</option>
+            <option value="">全部行业</option>
             {Array.from(new Set(firms.map((e) => e.industry))).map((i) => (
-              <option key={i}>{i}</option>
+              <option key={i} value={i}>
+                {label(i)}
+              </option>
             ))}
           </select>
         </label>
         <select
-          aria-label="Filter by signal"
+          aria-label="按信号筛选"
           value={signal}
           onChange={(e) => {
             setSignal(e.target.value);
             reset();
           }}
         >
-          <option value="">All signals</option>
-          <option value="alerts">Tax alerts</option>
-          <option value="innovation">Innovation ≥70</option>
-          <option value="opportunities">Policy leads</option>
+          <option value="">全部信号</option>
+          <option value="alerts">税务核验提示</option>
+          <option value="innovation">创新评分 ≥70</option>
+          <option value="opportunities">政策线索</option>
         </select>
       </div>
       <div className="table-scroll">
         <table>
           <thead>
             <tr>
-              <th>Enterprise</th>
-              <th>Revenue</th>
-              <th>Growth</th>
-              <th>R&D / sales</th>
-              <th>Tax credit</th>
-              <th>Signals</th>
-              <th>Innovation</th>
+              <th>企业</th>
+              <th>营业收入</th>
+              <th>收入增长</th>
+              <th>研发 / 收入</th>
+              <th>纳税信用</th>
+              <th>核验信号</th>
+              <th>创新画像</th>
               <th></th>
             </tr>
           </thead>
@@ -110,13 +117,12 @@ export function EnterpriseTable({
                     href={`#company/${e.enterprise_id}`}
                     className="company-cell"
                   >
-                    <span className="mini-logo">
-                      {e.name_en.slice(0, 2).toUpperCase()}
-                    </span>
+                    <span className="mini-logo">{companyMark(e)}</span>
                     <span>
-                      <strong>{e.company_name.replace("（虚构）", "")}</strong>
+                      <strong>{companyName(e)}</strong>
                       <small>
-                        {e.enterprise_id} · {e.city} · {e.industry} · Fictional
+                        {e.enterprise_id} · {label(e.city)} ·{" "}
+                        {label(e.industry)} · 虚构
                       </small>
                     </span>
                   </a>
@@ -139,10 +145,10 @@ export function EnterpriseTable({
                 <td>
                   {e.risks.length ? (
                     <a href={`#risks/${e.enterprise_id}`}>
-                      <Badge tone="amber">{e.risks.length} to review</Badge>
+                      <Badge tone="amber">{e.risks.length} 项待核验</Badge>
                     </a>
                   ) : (
-                    <span className="micro">No rule triggers</span>
+                    <span className="micro">未触发规则</span>
                   )}
                 </td>
                 <td>
@@ -155,7 +161,7 @@ export function EnterpriseTable({
                 </td>
                 <td>
                   <a
-                    aria-label={`Open ${e.name_en}`}
+                    aria-label={`查看${companyName(e)}`}
                     href={`#company/${e.enterprise_id}`}
                   >
                     <ChevronRight size={18} />
@@ -169,8 +175,8 @@ export function EnterpriseTable({
       {!filtered.length && (
         <div className="empty">
           <Search />
-          <h3>No matching enterprises</h3>
-          <p>Try another name or reset the filters.</p>
+          <h3>没有匹配的企业</h3>
+          <p>请更换搜索词或重置筛选。</p>
           <button
             className="button secondary"
             onClick={() => {
@@ -180,7 +186,7 @@ export function EnterpriseTable({
               reset();
             }}
           >
-            Reset filters
+            重置筛选
           </button>
         </div>
       )}
@@ -189,17 +195,17 @@ export function EnterpriseTable({
           {filtered.length
             ? `${page * 10 + 1}–${Math.min(page * 10 + 10, filtered.length)}`
             : "0"}{" "}
-          of {filtered.length} enterprises
+          / 共 {filtered.length} 家企业
         </span>
         <div>
           <button disabled={page === 0} onClick={() => setPage(page - 1)}>
-            Previous
+            上一页
           </button>
           <button
             disabled={(page + 1) * 10 >= filtered.length}
             onClick={() => setPage(page + 1)}
           >
-            Next
+            下一页
           </button>
         </div>
       </div>
@@ -222,20 +228,20 @@ export function Dashboard({
   return (
     <>
       <SectionHead
-        label="RELATIONSHIP MANAGER WORKSPACE"
-        title={onlyTable ? "Enterprise 360" : "Portfolio overview"}
+        label="客户经理工作台"
+        title={onlyTable ? "企业全景" : "客户组合概览"}
         description={
           onlyTable
-            ? "Find a company and inspect the evidence across financial, tax and innovation dimensions."
-            : "A connected view of enterprise health, policy opportunities and financing conversations."
+            ? "查找企业，核验其财务、税务与创新维度的证据。"
+            : "综合查看企业经营状况、政策线索与融资沟通机会。"
         }
         action={
           <a
-            href="/data/enterprise-panel.csv"
+            href="/data/enterprise-panel.zh-CN.csv"
             download
             className="button secondary"
           >
-            <Download size={16} /> Download dataset
+            <Download size={16} /> 下载中文数据
           </a>
         }
       />
@@ -243,46 +249,44 @@ export function Dashboard({
         <>
           <div className="metrics five">
             <Metric
-              label="Customers"
+              label="企业客户"
               value={String(firms.length)}
-              detail="Fictional enterprises · 8 industries"
+              detail="虚构企业 · 8 个行业"
               icon={<Building2 size={18} />}
               href="#companies"
             />
             <Metric
-              label="Risk alerts"
+              label="风险核验提示"
               value={String(riskCount)}
-              detail={`${firms.filter((e) => e.risks.length).length} enterprises need reconciliation`}
+              detail={`${firms.filter((e) => e.risks.length).length} 家企业需要核验`}
               icon={<ShieldCheck size={18} />}
               href="#signals"
             />
             <Metric
-              label="Policy opportunities"
+              label="政策机会"
               value={String(firms.filter((e) => e.opportunities.length).length)}
-              detail="Enterprises with preliminary leads"
+              detail="存在初步政策线索的企业"
               icon={<BookOpen size={18} />}
               href="#policies"
             />
             <Metric
-              label="Innovation signals"
+              label="创新信号"
               value={String(innov)}
-              detail="Illustrative score ≥70 / 100"
+              detail="演示评分 ≥70 / 100"
               icon={<Cpu size={18} />}
               href="#innovation"
             />
             <Metric
-              label="Financing signals"
+              label="融资沟通信号"
               value={String(finance)}
-              detail="Growth >20% · R&D intensity >8%"
+              detail="收入增长 >20% · 研发强度 >8%"
               icon={<Landmark size={18} />}
               href="#innovation"
             />
           </div>
           <div className="section-inline">
-            <h2>Explore demo cases</h2>
-            <span className="micro">
-              Three evidence-led banking conversations
-            </span>
+            <h2>查看演示案例</h2>
+            <span className="micro">三个依据企业证据展开的业务场景</span>
           </div>
           <Cases d={d} />
           <PortfolioCallout />
@@ -299,13 +303,12 @@ export function InnovationPortfolio({ d }: { d: Dataset }) {
   return (
     <>
       <SectionHead
-        label="TECH FINANCE AGENT"
-        title="Technology finance intelligence"
-        description="Bring sustained R&D and innovation evidence into enterprise financing discussions."
+        label="科技金融 Agent"
+        title="科技金融分析"
+        description="将持续研发与创新证据纳入企业融资沟通。"
       />
       <Notice>
-        The innovation score uses disclosed designer-defined weights. It is not
-        a government classification, credit grade or validated lending model.
+        创新评分采用公开的设计者设定权重，不代表政府认定、信用等级或经过验证的授信模型。
       </Notice>
       <div className="innovation-leaders">
         {firms.slice(0, 3).map((e, i) => (
@@ -315,18 +318,18 @@ export function InnovationPortfolio({ d }: { d: Dataset }) {
             href={`#innovation/${e.enterprise_id}`}
           >
             <div className="eyebrow">
-              PROFILE 0{i + 1} · {e.city}
+              企业 0{i + 1} · {label(e.city)}
             </div>
-            <h3>{e.name_en}</h3>
+            <h3>{companyName(e)}</h3>
             <strong>
               {e.innovation.score.toFixed(0)}
               <small>/100</small>
             </strong>
             <div>
-              <span>R&D {pct(e.rd_intensity)}</span>
-              <span>{e.patents} patents</span>
+              <span>研发强度 {pct(e.rd_intensity)}</span>
+              <span>{e.patents} 项专利</span>
             </div>
-            <p>{e.industry} · Fictional</p>
+            <p>{label(e.industry)} · 虚构</p>
           </a>
         ))}
       </div>

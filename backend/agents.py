@@ -32,47 +32,43 @@ def route(question: str) -> str:
 def brief(e: dict) -> dict:
     risks = e["risks"]
     return {
-        "mode": "Deterministic evidence brief",
-        "whats_happening": f"Revenue grew {e['revenue_growth']:.1%} to RMB {e['revenue']:.2f}m. Profit margin is {e['profit'] / e['revenue']:.1%}; R&D intensity is {e['rd_intensity']:.1%}.",
-        "opportunities": f"{len(e['opportunities'])} policy or financing discussion leads require verification. Review the R&D ledger and explore investment / working-capital needs.",
-        "risks": f"{len(risks)} reconciliation signals are open. "
-        + (
-            risks[0]["evidence"]
-            if risks
-            else "No configured tax rule is triggered; this is not a clean-compliance conclusion."
-        ),
+        "mode": "基于已计算证据的简报",
+        "whats_happening": f"营业收入同比增长 {e['revenue_growth']:.1%}，达到 {e['revenue'] * 100:.2f} 万元；利润率 {e['profit'] / e['revenue']:.1%}；研发强度 {e['rd_intensity']:.1%}。",
+        "opportunities": f"有 {len(e['opportunities'])} 项政策或融资沟通线索待核验。建议审查研发台账，了解投资与营运资金需求。",
+        "risks": f"有 {len(risks)} 项勾稽信号待核验。"
+        + (risks[0]["evidence"] if risks else "未触发已配置涉税规则，但不能据此认定完全合规。"),
         "next_actions": [
-            "Obtain management's revenue-to-VAT and tax computation bridges",
-            "Verify policy eligibility and any qualification/list evidence",
-            "Discuss cash-flow forecasts, IP quality and financing purpose",
+            "请企业管理层提供收入与增值税销售额、税额计算的勾稽明细",
+            "核验政策适用资格及资质、批准名单材料",
+            "沟通现金流预测、知识产权质量与融资用途",
         ],
         "trace": [
             {
                 "agent": AGENTS[1],
-                "tool": "enterprise snapshot + historical panel",
+                "tool": "企业快照 + 历史面板",
                 "result": e["enterprise_id"],
             },
             {
                 "agent": AGENTS[2],
-                "tool": "versioned deterministic rules R1–R6",
-                "result": f"{len(risks)} signals",
+                "tool": "版本化确定性规则 R1–R6",
+                "result": f"{len(risks)} 条信号",
             },
             {
                 "agent": AGENTS[3],
-                "tool": "transparent six-component scorecard",
+                "tool": "透明的六维评分卡",
                 "result": f"{e['innovation']['score']}/100",
             },
             {
                 "agent": AGENTS[0],
-                "tool": "dated curated policy matching",
-                "result": f"{len(e['opportunities'])} leads",
+                "tool": "标明日期的精选政策匹配",
+                "result": f"{len(e['opportunities'])} 条线索",
             },
             {
                 "agent": AGENTS[4],
-                "tool": "paired logistic models",
-                "result": "synthetic-label probabilities; no lending approval",
+                "tool": "配对逻辑回归模型",
+                "result": "合成标签事件概率；不生成贷款审批",
             },
-            {"agent": AGENTS[5], "tool": "grounded evidence summary", "result": "human-review action list"},
+            {"agent": AGENTS[5], "tool": "基于证据的摘要", "result": "供人工审查的行动清单"},
         ],
     }
 
@@ -95,7 +91,7 @@ def orchestrate(question: str, e: dict | None = None) -> dict:
             "agent": agent,
             "output": {
                 "status": "insufficient_evidence",
-                "answer": "Select an enterprise to ground this request.",
+                "answer": "请选择企业，以其证据支持本次请求。",
             },
         }
     keys = {

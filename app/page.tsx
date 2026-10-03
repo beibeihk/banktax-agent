@@ -41,61 +41,57 @@ function Landing({ d }: { d: Dataset | null }) {
         <Brand />
         <div className="landing-links">
           <a href={repo} target="_blank" rel="noreferrer">
-            View source <ExternalLink size={14} />
+            查看源码 <ExternalLink size={14} />
           </a>
           <a className="button compact" href="#portfolio">
-            Launch Demo
+            进入演示
           </a>
         </div>
       </nav>
       <section className="hero landing-hero">
         <div className="hero-copy">
           <div className="eyebrow accent">
-            TAX ECONOMICS × BANKING × AI AGENTS
+            税收经济学 × 商业银行 × AI 智能体
           </div>
           <h1>
-            A clearer view of
+            看清企业实力
             <br />
-            enterprise potential.
+            发现成长潜力
           </h1>
-          <p>
-            Transforming tax, financial and innovation signals into explainable
-            intelligence for commercial banking.
-          </p>
+          <p>汇集税务、财务与创新信号，为商业银行提供有据可查的企业分析。</p>
           <div className="hero-actions">
             <a className="button" href="#portfolio">
-              Launch Demo
+              进入演示
             </a>
             <a className="text-button" href="#research">
-              Explore Research Mode
+              查看研究模式
             </a>
           </div>
           <div className="hero-note">
-            <ShieldCheck size={16} /> Synthetic data · No registration · No API
-            key required
+            <ShieldCheck size={16} /> 合成数据 · 无需注册 · 无需配置 API 密钥
           </div>
         </div>
         <div className="hero-workspace">
           <div className="preview-top">
             <span>
-              <Layers3 size={17} /> Enterprise 360
+              <Layers3 size={17} /> 企业全景
             </span>
-            <Badge tone="teal">Demo</Badge>
+            <Badge tone="teal">演示</Badge>
           </div>
           <div className="hero-firm">
-            <div className="firm-logo">XL</div>
+            <div className="firm-logo">星澜</div>
             <div>
-              <strong>Xinglan AI</strong>
-              <span>Shenzhen · Artificial intelligence · Fictional</span>
+              <strong>星澜智能科技</strong>
+              <span>深圳 · 人工智能 · 虚构企业</span>
             </div>
           </div>
           <div className="hero-stat-row">
             <div>
-              <span>Revenue growth</span>
+              <span>收入增长率</span>
               <strong>{d ? pct(d.enterprises[0].revenue_growth) : "—"}</strong>
             </div>
             <div>
-              <span>R&D intensity</span>
+              <span>研发强度</span>
               <strong>{d ? pct(d.enterprises[0].rd_intensity) : "—"}</strong>
             </div>
           </div>
@@ -107,69 +103,58 @@ function Landing({ d }: { d: Dataset | null }) {
           <div className="hero-insight">
             <Lightbulb size={20} />
             <span>
-              Sustained R&D adds context to profitability.
-              <small>Evidence first. Every decision remains human.</small>
+              结合持续研发投入，理解企业盈利表现。
+              <small>依据可追溯，决策由人作出。</small>
             </span>
           </div>
         </div>
       </section>
       <div className="capability-strip">
         <span>
-          <BookOpen size={17} /> Tax policy intelligence
+          <BookOpen size={17} /> 税收政策智能
         </span>
         <span>
-          <Activity size={17} /> Explainable risk signals
+          <Activity size={17} /> 可解释风险信号
         </span>
         <span>
-          <Cpu size={17} /> Innovation profiles
+          <Cpu size={17} /> 创新画像
         </span>
         <span>
-          <FlaskConical size={17} /> Reproducible research
+          <FlaskConical size={17} /> 可复现研究
         </span>
       </div>
       <section className="landing-section">
         <div className="landing-section-head">
           <div>
-            <div className="eyebrow accent">THREE BUSINESS CONVERSATIONS</div>
-            <h2>Explore demo cases</h2>
+            <div className="eyebrow accent">三个银行业务场景</div>
+            <h2>查看演示案例</h2>
           </div>
-          <p>From enterprise data to questions worth asking.</p>
+          <p>从企业数据出发，找到业务核验的切入点。</p>
         </div>
-        {d ? (
-          <Cases d={d} />
-        ) : (
-          <p role="status">Loading the synthetic enterprise dataset…</p>
-        )}
+        {d ? <Cases d={d} /> : <p role="status">正在加载合成企业数据…</p>}
       </section>
       <section className="landing-method">
         <div>
-          <div className="eyebrow accent">
-            ENTERPRISE TAX INTELLIGENCE & BANK-TAX RISK AGENT
-          </div>
+          <div className="eyebrow accent">企业涉税智能与银行风险决策支持</div>
           <h2>
-            Built for a banking conversation.
+            服务银行业务沟通
             <br />
-            Designed for scrutiny.
+            接受证据与方法检验
           </h2>
           <p>
-            Six focused agents connect public policy sources, coherent
-            enterprise data and auditable models. Explore the workspace, then
-            inspect its assumptions in Research Mode.
+            六个业务智能体连接公开政策、企业数据与可审查模型。进入业务工作台，或在研究模式中查看方法与假设。
           </p>
         </div>
         <div className="method-list">
           {[
             [
-              "Grounded policy opportunities",
-              "Original sources, effective dates and missing eligibility evidence.",
+              "政策机会有据可查",
+              "展示政策原文、有效日期与尚待补齐的资格材料。",
             ],
+            ["风险信号可以解释", "同时提供触发规则、合理成因和核验步骤。"],
             [
-              "Signals you can explain",
-              "Rules, legitimate explanations and verification steps.",
-            ],
-            [
-              "Engineering you can reproduce",
-              "Seeded data, held-out comparisons and actual evaluations.",
+              "工程结果能够复现",
+              "固定随机种子、独立测试集比较与真实执行的评估。",
             ],
           ].map(([title, text], i) => (
             <div key={title}>
@@ -186,20 +171,19 @@ function Landing({ d }: { d: Dataset | null }) {
         <div>
           <Brand />
           <p>
-            An independent research & engineering portfolio by{" "}
+            独立研究与工程作品，作者：{" "}
             <a
               href="https://beibeihk.github.io/myblog/"
               target="_blank"
               rel="noreferrer"
             >
-              Kun Huang · 黄坤
+              黄坤
             </a>
             .
           </p>
         </div>
         <p>
-          All company names and enterprise-level records are fictional and
-          generated solely for demonstration. No affiliation with any bank.{" "}
+          所有企业名称及企业层面记录均为演示生成的虚构内容。本项目与任何银行均无隶属关系。{" "}
           {DISCLAIMER}
         </p>
       </footer>
@@ -207,13 +191,13 @@ function Landing({ d }: { d: Dataset | null }) {
   );
 }
 const navigation = [
-  { id: "portfolio", name: "Portfolio overview", icon: LayoutDashboard },
-  { id: "companies", name: "Enterprise 360", icon: Building2 },
-  { id: "signals", name: "Tax risk signals", icon: ShieldCheck },
-  { id: "innovation", name: "Tech finance", icon: Lightbulb },
-  { id: "policies", name: "Policy intelligence", icon: BookOpen },
-  { id: "research", name: "Credit risk research", icon: FlaskConical },
-  { id: "evaluation", name: "Evaluation & methods", icon: GitBranch },
+  { id: "portfolio", name: "客户组合概览", icon: LayoutDashboard },
+  { id: "companies", name: "企业全景", icon: Building2 },
+  { id: "signals", name: "税务风险信号", icon: ShieldCheck },
+  { id: "innovation", name: "科技金融", icon: Lightbulb },
+  { id: "policies", name: "税收政策智能", icon: BookOpen },
+  { id: "research", name: "信贷风险研究", icon: FlaskConical },
+  { id: "evaluation", name: "评估与方法", icon: GitBranch },
 ];
 function Shell({
   route,
@@ -232,13 +216,13 @@ function Shell({
         <Brand />
         <button
           className="mobile-close"
-          aria-label="Close navigation"
+          aria-label="关闭导航"
           onClick={() => setOpen(false)}
         >
           <X />
         </button>
-        <div className="sidebar-section">INTELLIGENCE WORKSPACE</div>
-        <nav aria-label="Main navigation">
+        <div className="sidebar-section">智能分析工作台</div>
+        <nav aria-label="主导航">
           {navigation.map((n) => (
             <a
               key={n.id}
@@ -255,18 +239,17 @@ function Shell({
           <div className="sidebar-note">
             <ShieldCheck size={18} />
             <div>
-              Independent prototype<span>Synthetic enterprise data</span>
+              独立研究原型<span>合成企业数据</span>
             </div>
           </div>
           <a href={repo} target="_blank" rel="noreferrer">
-            <GitBranch size={16} /> Source & documentation{" "}
-            <ExternalLink size={14} />
+            <GitBranch size={16} /> 源码与文档 <ExternalLink size={14} />
           </a>
           <a href="#">
-            <CircleHelp size={16} /> About this project
+            <CircleHelp size={16} /> 关于项目
           </a>
           <div className="author">
-            BUILT BY KUN HUANG <span>Tax Economics × AI</span>
+            作者：黄坤 <span>税收经济学 × AI</span>
           </div>
         </div>
       </aside>
@@ -275,15 +258,15 @@ function Shell({
           <div className="breadcrumb">
             <button
               className="mobile-menu"
-              aria-label="Open navigation"
+              aria-label="打开导航"
               onClick={() => setOpen(!open)}
             >
               <Menu />
             </button>
-            <span>Workspace</span>
+            <span>工作台</span>
             <ChevronRight size={14} />
             <strong>
-              {navigation.find((n) => n.id === active)?.name || "Company 360"}
+              {navigation.find((n) => n.id === active)?.name || "企业全景"}
             </strong>
           </div>
           <div className="topbar-right">
@@ -292,16 +275,16 @@ function Shell({
                 className={route !== "research" ? "selected" : ""}
                 href="#portfolio"
               >
-                Business Mode
+                业务模式
               </a>
               <a
                 className={route === "research" ? "selected" : ""}
                 href="#research"
               >
-                Research Mode
+                研究模式
               </a>
             </div>
-            <Badge tone="teal">Demo mode</Badge>
+            <Badge tone="teal">演示模式</Badge>
             <span className="avatar">KH</span>
           </div>
         </header>
@@ -320,7 +303,7 @@ export default function Page() {
     let mounted = true;
     fetch("/data/demo.json")
       .then((r) => {
-        if (!r.ok) throw Error("Dataset unavailable");
+        if (!r.ok) throw Error("数据暂不可用");
         return r.json();
       })
       .then((data) => {
@@ -349,8 +332,7 @@ export default function Page() {
       doc.modelContext.registerTool(
         {
           name: "get_enterprise_evidence",
-          description:
-            "Read computed evidence for a fictional enterprise without changing state.",
+          description: "读取虚构企业的已计算证据，不改变系统状态。",
           annotations: { readOnlyHint: true },
           inputSchema: {
             type: "object",
@@ -365,11 +347,11 @@ export default function Page() {
               !("enterprise_id" in input) ||
               typeof input.enterprise_id !== "string"
             )
-              throw Error("enterprise_id required");
+              throw Error("请提供企业编号 enterprise_id");
             const e = d.enterprises.find(
               (e) => e.enterprise_id === input.enterprise_id,
             );
-            if (!e) throw Error("Unknown enterprise");
+            if (!e) throw Error("企业不存在");
             return {
               enterprise_id: e.enterprise_id,
               synthetic: true,
@@ -392,8 +374,8 @@ export default function Page() {
         <Landing d={d} />
         {error && (
           <div className="load-error" role="alert">
-            The dataset could not be loaded.{" "}
-            <button onClick={() => window.location.reload()}>Retry</button>
+            数据加载失败。{" "}
+            <button onClick={() => window.location.reload()}>重新加载</button>
           </div>
         )}
       </>
@@ -403,17 +385,15 @@ export default function Page() {
       <Shell route={route}>
         <div className="empty" role={error ? "alert" : "status"}>
           <Layers3 />
-          <h1>
-            {error ? "Dataset unavailable" : "Loading enterprise intelligence…"}
-          </h1>
+          <h1>{error ? "数据暂不可用" : "正在加载企业分析…"}</h1>
           <p>
             {error
-              ? "Check the connection and retry."
-              : "Preparing the synthetic portfolio and auditable results."}
+              ? "请检查网络连接后重试。"
+              : "正在准备合成客户组合与可审查分析结果。"}
           </p>
           {error && (
             <button className="button" onClick={() => window.location.reload()}>
-              Retry
+              重新加载
             </button>
           )}
         </div>
@@ -428,9 +408,9 @@ export default function Page() {
         <Company key={`${view}/${id}`} d={d} e={e} view={view} />
       ) : (
         <div className="empty">
-          <h1>Enterprise not found</h1>
+          <h1>未找到企业</h1>
           <a className="button" href="#companies">
-            Return to portfolio
+            返回客户组合
           </a>
         </div>
       );
@@ -444,9 +424,9 @@ export default function Page() {
   else
     content = (
       <div className="empty">
-        <h1>Page not found</h1>
+        <h1>未找到页面</h1>
         <a className="button" href="#portfolio">
-          Return to workspace
+          返回工作台
         </a>
       </div>
     );

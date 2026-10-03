@@ -114,7 +114,7 @@ def test_missing_evidence_and_manufacturing_list(firms):
     e["approved_manufacturing_list"] = False
     assert (
         next(o for o in opportunities(e) if o["policy_id"] == "manufacturing-vat-43")["status"]
-        == "Missing list evidence"
+        == "缺少名单依据"
     )
     e = enrich(firms)[0]
     assert len(e["brief"]["trace"]) == 6

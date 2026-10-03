@@ -12,6 +12,25 @@ describe("portfolio journeys", () => {
     expect(
       filterEnterprises(data.enterprises, "Xinglan", "Software", ""),
     ).toHaveLength(0);
+    expect(filterEnterprises(data.enterprises, "星澜", "AI", "")).toHaveLength(
+      1,
+    );
+    expect(
+      filterEnterprises(data.enterprises, "深圳", "", "").length,
+    ).toBeGreaterThan(0);
+    expect(
+      filterEnterprises(data.enterprises, "人工智能", "", "").length,
+    ).toBeGreaterThan(0);
+    expect(
+      filterEnterprises(data.enterprises, "深圳", "", "").every(
+        (e) => e.city === "Shenzhen",
+      ),
+    ).toBe(true);
+    expect(
+      filterEnterprises(data.enterprises, "人工智能", "", "").every(
+        (e) => e.industry === "AI",
+      ),
+    ).toBe(true);
   });
   it("uses exact innovation threshold", () => {
     expect(
@@ -22,7 +41,8 @@ describe("portfolio journeys", () => {
   });
   it("has stable financial formatting", () => {
     expect(pct(0.1763)).toBe("17.6%");
-    expect(money(10)).toBe("¥10m");
+    expect(money(10)).toBe("1,000 万元");
+    expect(money(139.3823)).toBe("1.39 亿元");
   });
 });
 describe("policy retrieval mirrors Python date and abstention constraints", () => {

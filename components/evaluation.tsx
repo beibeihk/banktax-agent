@@ -11,6 +11,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import type { Dataset } from "@/lib/domain";
+import { label } from "@/lib/labels";
 import { money } from "@/lib/domain";
 import { Badge, SectionHead, Metric, repo } from "./ui";
 function CalculatorPanel() {
@@ -22,15 +23,15 @@ function CalculatorPanel() {
     <section className="panel">
       <div className="panel-head">
         <h2>
-          <Calculator size={18} /> R&D deduction scenario
+          <Calculator size={18} /> 研发加计扣除情景测算
         </h2>
-        <Badge>RMB millions</Badge>
+        <Badge>金额单位：百万元</Badge>
       </div>
       <div className="panel-body calculator">
         <label>
-          Eligible expensed R&D
+          合格费用化研发支出
           <input
-            aria-label="Eligible expensed R&D"
+            aria-label="合格费用化研发支出"
             type="number"
             min="0"
             max="1000000000"
@@ -40,36 +41,34 @@ function CalculatorPanel() {
           />
         </label>
         <label>
-          Illustrative CIT rate
+          假设企业所得税税率
           <select
-            aria-label="Illustrative CIT rate"
+            aria-label="假设企业所得税税率"
             value={rate}
             onChange={(e) => setRate(e.target.value)}
           >
-            <option value="0.15">15% · qualifying high-tech</option>
-            <option value="0.25">25% · standard</option>
-            <option value="0.05">5% · qualifying small low-profit</option>
+            <option value="0.15">15% · 符合条件的高企</option>
+            <option value="0.25">25% · 一般税率</option>
+            <option value="0.05">5% · 符合条件的小型微利企业</option>
           </select>
         </label>
         <div aria-live="polite">
-          <strong>{valid ? money(n * Number(rate)) : "Invalid input"}</strong>
-          <span>Illustrative extra-deduction tax effect</span>
+          <strong>{valid ? money(n * Number(rate)) : "输入无效"}</strong>
+          <span>加计扣除的示例税额影响</span>
           <p className="micro">
-            Additional deduction {valid ? money(n) : "—"} · total deduction{" "}
+            加计扣除额 {valid ? money(n) : "—"} · 总扣除额{" "}
             {valid ? money(n * 2) : "—"}
           </p>
         </div>
       </div>
       <div className="panel-note">
-        Eligible expensed R&D only; sufficient taxable income assumed;
-        interactions, carryforwards and timing excluded. This is not a cash
-        refund. Basis:{" "}
+        仅测算合格费用化研发支出，假设应纳税所得额充足，未考虑优惠叠加、结转及时间差异；不代表现金退税。依据：{" "}
         <a
           href="https://fgk.chinatax.gov.cn/zcfgk/c102416/c5201978/content.html"
           target="_blank"
           rel="noreferrer"
         >
-          2023 No.7
+          2023 年第 7 号公告
         </a>
         .
       </div>
@@ -95,45 +94,41 @@ export function Evaluation({ d }: { d: Dataset }) {
   return (
     <>
       <SectionHead
-        label="ENGINEERING THAT CAN BE INSPECTED"
-        title="Evaluation & methods"
-        description="Inspect rules, source records, model protocol and reproducible evaluation artifacts."
+        label="可审查的工程与方法"
+        title="评估与方法"
+        description="查看规则、来源记录、模型方案与可复现评估产物。"
       />
       <div className="metrics four">
         <Metric
-          label="Policy records"
+          label="政策来源记录"
           value={String(d.policies.length)}
-          detail="Curated official sources / reports"
+          detail="精选官方政策与报道"
           icon={<BookOpen size={17} />}
         />
         <Metric
-          label="Demo records"
+          label="演示数据记录"
           value="320"
-          detail="80 fictional enterprises × 4 years"
+          detail="80 家虚构企业 × 4 年"
           icon={<Building2 size={17} />}
         />
         <Metric
-          label="Business agents"
+          label="业务智能体"
           value="6"
-          detail="Task routing + evidence orchestration"
+          detail="任务路由 + 证据编排"
           icon={<Cpu size={17} />}
         />
         <Metric
-          label="Deterministic evals"
-          value={report ? `${report.passed}/${report.total}` : "Pending"}
-          detail={
-            report
-              ? "Actual stored execution result"
-              : "Run python -m evals.run"
-          }
+          label="确定性评估"
+          value={report ? `${report.passed}/${report.total}` : "等待评估"}
+          detail={report ? "实际运行后保存的结果" : "运行 python -m evals.run"}
           icon={<Check size={17} />}
         />
       </div>
       <section className="panel">
         <div className="panel-head">
-          <h2>Evaluation suite</h2>
+          <h2>评估项目</h2>
           <a className="subtle-link" href="/data/evaluation.json" download>
-            <Download size={15} /> Download run
+            <Download size={15} /> 下载评估结果
           </a>
         </div>
         <div className="eval-grid">
@@ -142,7 +137,7 @@ export function Evaluation({ d }: { d: Dataset }) {
               <div key={name}>
                 <span>
                   <Check size={17} />
-                  {name.replaceAll("_", " ")}
+                  {label(name)}
                 </span>
                 <strong>
                   {v.passed} / {v.total}
@@ -151,89 +146,82 @@ export function Evaluation({ d }: { d: Dataset }) {
             ))}
         </div>
         <div className="panel-note">
-          Evaluates deterministic policy retrieval/provenance, tax arithmetic,
-          rule boundaries, routing, abstention and regression. Does not measure
-          live LLM accuracy or validate legal eligibility.
+          评估确定性政策检索与溯源、税额运算、规则边界、路由、弃答与回归检查，不衡量实时大模型准确率，也不验证法定资格。
         </div>
       </section>
       <CalculatorPanel />
       <section className="panel">
         <div className="panel-head">
-          <h2>Agent architecture</h2>
-          <Badge>Focused responsibilities</Badge>
+          <h2>智能体架构</h2>
+          <Badge>职责明确</Badge>
         </div>
         <div className="architecture">
           <div className="architecture-inputs">
             <div>
               <BookOpen />
-              <strong>Public policy sources</strong>
-              <small>Dated, curated official records</small>
+              <strong>公开政策来源</strong>
+              <small>标明日期的精选官方记录</small>
             </div>
             <div>
               <Building2 />
-              <strong>Synthetic enterprise panel</strong>
-              <small>Coherent seeded generation</small>
+              <strong>合成企业面板</strong>
+              <small>固定种子、一致生成</small>
             </div>
           </div>
           <div className="architecture-line" />
           <div className="architecture-agents">
             {d.meta.agents.slice(0, 5).map((a) => (
-              <span key={a}>{a}</span>
+              <span key={a}>{label(a)}</span>
             ))}
           </div>
           <div className="architecture-line" />
           <div className="architecture-orchestrator">
             <GitBranch size={20} />
-            <strong>Agent Orchestrator</strong>
-            <span>
-              Intent routing · structured evidence · explicit abstention
-            </span>
+            <strong>智能体编排器</strong>
+            <span>意图路由 · 结构化证据 · 明确弃答</span>
           </div>
           <div className="architecture-line" />
           <div className="architecture-output">
-            <span>Relationship Manager Agent</span>
-            <span>Business workspace / Research Mode</span>
+            <span>客户经理 Agent</span>
+            <span>业务工作台 / 研究模式</span>
           </div>
         </div>
         <div className="panel-note">
-          Python engines produce versioned static demo artifacts. The local
-          FastAPI service exposes the same engines and optional server-side
-          OpenAI-compatible briefs.
+          Python 引擎生成可追踪版本的静态演示产物。本地 FastAPI
+          服务提供同一套引擎，并支持可选的服务端 OpenAI 兼容接口简报。
         </div>
       </section>
       <section className="panel">
         <div className="panel-head">
-          <h2>Limitations & roadmap</h2>
+          <h2>局限与后续计划</h2>
           <a
             href={repo}
             target="_blank"
             rel="noreferrer"
             className="subtle-link"
           >
-            Full documentation <ExternalLink size={14} />
+            完整文档 <ExternalLink size={14} />
           </a>
         </div>
         <div className="two-col panel-body">
           <div>
-            <h3>Current limitations</h3>
+            <h3>当前局限</h3>
             <ul>
-              <li>All enterprise and outcome records are synthetic.</li>
-              <li>Policies form a fixed, human-curated snapshot.</li>
-              <li>Rules and innovation weights are illustrative.</li>
-              <li>Public demo makes no live LLM calls.</li>
-              <li>No real-world lending, tax or causal conclusions.</li>
+              <li>所有企业记录和风险结果均为合成数据。</li>
+              <li>政策资料为固定、人工整理的快照。</li>
+              <li>规则与创新权重用于演示。</li>
+              <li>公开演示不调用实时大语言模型。</li>
+              <li>不作真实信贷、税务或因果结论。</li>
             </ul>
           </div>
           <div>
-            <h3>Future roadmap</h3>
+            <h3>后续计划</h3>
             <ul>
-              <li>
-                Versioned policy ingestion and stronger retrieval evaluations.
-              </li>
-              <li>Authorized enterprise data and external validation.</li>
-              <li>PostgreSQL persistence and audit trail.</li>
-              <li>Production access controls and monitoring.</li>
-              <li>Scenario-specific calibration and prospective testing.</li>
+              <li>增加政策版本管理与更严格的检索评估。</li>
+              <li>接入授权企业数据并开展外部验证。</li>
+              <li>增加 PostgreSQL 持久化与审计轨迹。</li>
+              <li>完善生产环境访问控制与监测。</li>
+              <li>开展具体业务场景的校准与前瞻测试。</li>
             </ul>
           </div>
         </div>

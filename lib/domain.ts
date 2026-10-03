@@ -1,14 +1,17 @@
 import type snapshot from "../public/data/demo.json";
+import { label } from "./labels";
 export type Dataset = typeof snapshot;
 export type Enterprise = Dataset["enterprises"][number];
 export type Policy = Dataset["policies"][number];
 export type Risk = Enterprise["risks"][number];
 export const DISCLAIMER =
-  "Decision-support prototype. Alerts indicate signals requiring further verification and do not constitute tax, credit, legal, or compliance conclusions.";
+  "本系统为决策支持原型。提示仅表示需要进一步核验的异常信号，不构成税务、信贷、法律或合规结论。";
 export const pct = (value: number, digits = 1) =>
   `${(value * 100).toFixed(digits)}%`;
 export const money = (value: number) =>
-  `¥${value.toLocaleString("en-US", { maximumFractionDigits: 1 })}m`;
+  Math.abs(value) >= 100
+    ? `${(value / 100).toLocaleString("zh-CN", { maximumFractionDigits: 2 })} 亿元`
+    : `${(value * 100).toLocaleString("zh-CN", { maximumFractionDigits: 1 })} 万元`;
 export const burden = (e: Enterprise) => (e.vat_paid + e.cit_paid) / e.revenue;
 export function filterEnterprises(
   firms: Enterprise[],
@@ -20,9 +23,15 @@ export function filterEnterprises(
   return firms.filter(
     (e) =>
       (!q ||
-        [e.company_name, e.name_en, e.enterprise_id, e.city, e.industry].some(
-          (v) => v.toLowerCase().includes(q),
-        )) &&
+        [
+          e.company_name,
+          e.name_en,
+          e.enterprise_id,
+          e.city,
+          e.industry,
+          label(e.city),
+          label(e.industry),
+        ].some((v) => v.toLowerCase().includes(q))) &&
       (!industry || e.industry === industry) &&
       (!signals ||
         (signals === "alerts"

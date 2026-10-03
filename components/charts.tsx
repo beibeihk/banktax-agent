@@ -13,6 +13,7 @@ import {
   BarChart,
   Bar,
 } from "recharts";
+import { label } from "@/lib/labels";
 import type { Dataset, Enterprise } from "@/lib/domain";
 const teal = "#087b70",
   gray = "#8395a3";
@@ -22,7 +23,7 @@ export function HistoryChart({ e }: { e: Enterprise }) {
     <div
       className="chart"
       role="img"
-      aria-label="Annual revenue and R&D expenditure in RMB millions"
+      aria-label="历年营业收入与研发支出，单位：百万元"
     >
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
@@ -32,11 +33,11 @@ export function HistoryChart({ e }: { e: Enterprise }) {
           <CartesianGrid stroke="#e8edef" vertical={false} />
           <XAxis dataKey="year" tick={axis} axisLine={false} tickLine={false} />
           <YAxis tick={axis} axisLine={false} tickLine={false} width={40} />
-          <Tooltip formatter={(v) => `${Number(v).toFixed(2)}m RMB`} />
+          <Tooltip formatter={(v) => `${Number(v).toFixed(2)} 百万元`} />
           <Area
             isAnimationActive={false}
             dataKey="revenue"
-            name="Revenue"
+            name="营业收入"
             stroke={teal}
             fill="#e4f3ef"
             strokeWidth={2}
@@ -44,7 +45,7 @@ export function HistoryChart({ e }: { e: Enterprise }) {
           <Area
             isAnimationActive={false}
             dataKey="rd_expense"
-            name="R&D expenditure"
+            name="研发支出"
             stroke="#5e80a0"
             fill="#edf2f7"
             strokeWidth={2}
@@ -58,12 +59,12 @@ export function HistoryChart({ e }: { e: Enterprise }) {
 export function ResearchCharts({ r }: { r: Dataset["research"] }) {
   return (
     <div className="two-col">
-      {["ROC curves", "Calibration"].map((title, i) => (
+      {["ROC 曲线", "概率校准"].map((title, i) => (
         <section className="panel" key={title}>
           <div className="panel-head">
             <h2>{title}</h2>
             <span className="micro">
-              {i ? "6 quantile bins" : `Fixed holdout · n=${r.test_n}`}
+              {i ? "6 个分位数组" : `固定测试集 · n=${r.test_n}`}
             </span>
           </div>
           <div className="chart" role="img" aria-label={title}>
@@ -80,13 +81,13 @@ export function ResearchCharts({ r }: { r: Dataset["research"] }) {
                 <Tooltip />
                 {i && (
                   <Line
-                  isAnimationActive={false}
+                    isAnimationActive={false}
                     data={[
                       { predicted: 0, observed: 0 },
                       { predicted: 1, observed: 1 },
                     ]}
                     dataKey="observed"
-                    name="Perfect calibration"
+                    name="理想校准"
                     dot={false}
                     stroke="#c4cdd0"
                     strokeDasharray="4 4"
@@ -94,11 +95,11 @@ export function ResearchCharts({ r }: { r: Dataset["research"] }) {
                 )}
                 {r.models.map((m, j) => (
                   <Line
-                  isAnimationActive={false}
+                    isAnimationActive={false}
                     key={m.name}
                     data={i ? m.calibration : m.roc}
                     dataKey={i ? "observed" : "tpr"}
-                    name={j ? "Augmented" : "Financial only"}
+                    name={j ? "扩展模型" : "仅财务信息"}
                     dot={!!i}
                     stroke={j ? teal : gray}
                     strokeWidth={2}
@@ -118,7 +119,7 @@ export function ImportanceChart({ r }: { r: Dataset["research"] }) {
     <div
       className="importance-chart"
       role="img"
-      aria-label="Ten-repeat held-out permutation importance measured by ROC-AUC decrease"
+      aria-label="测试集重复置换 10 次的特征重要性，以 ROC-AUC 降幅衡量"
     >
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
@@ -133,16 +134,20 @@ export function ImportanceChart({ r }: { r: Dataset["research"] }) {
           <YAxis
             type="category"
             dataKey="feature"
-            width={142}
+            tickFormatter={label}
+            width={155}
             tick={axis}
             axisLine={false}
             tickLine={false}
           />
-          <Tooltip formatter={(v) => Number(v).toFixed(4)} />
+          <Tooltip
+            labelFormatter={(v) => label(String(v))}
+            formatter={(v) => Number(v).toFixed(4)}
+          />
           <Bar
             isAnimationActive={false}
             dataKey="auc_drop"
-            name="Mean AUC decrease"
+            name="AUC 平均降幅"
             fill={teal}
             radius={[0, 3, 3, 0]}
             barSize={15}

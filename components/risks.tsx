@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Search } from "lucide-react";
+import { label } from "@/lib/labels";
 import { DISCLAIMER } from "@/lib/domain";
 import type { Dataset, Enterprise, Risk } from "@/lib/domain";
 import { Badge, SectionHead, Notice } from "./ui";
@@ -15,7 +16,7 @@ export function RiskCard({
     <article className="risk-card">
       <div className="risk-title">
         <div>
-          <div className="eyebrow">{risk.code} · TAX RISK AGENT</div>
+          <div className="eyebrow">{risk.code} · 税务风险 Agent</div>
           <h3>{risk.name}</h3>
           {company && (
             <a
@@ -35,18 +36,18 @@ export function RiskCard({
                 : "neutral"
           }
         >
-          {risk.severity}
+          {label(risk.severity)}
         </Badge>
       </div>
       <div className="risk-evidence">
-        <span>EVIDENCE</span>
+        <span>触发依据</span>
         <p>{risk.evidence}</p>
       </div>
       <p>{risk.explanation}</p>
       <code className="rule">{risk.rule}</code>
       <div className="two-col risk-details">
         <div>
-          <h4>Possible legitimate explanations</h4>
+          <h4>可能的合理成因</h4>
           <ul>
             {risk.legitimate_explanations.map((x) => (
               <li key={x}>{x}</li>
@@ -54,7 +55,7 @@ export function RiskCard({
           </ul>
         </div>
         <div>
-          <h4>Recommended verification</h4>
+          <h4>建议核验步骤</h4>
           <ul>
             {risk.verification.map((x) => (
               <li key={x}>{x}</li>
@@ -81,32 +82,32 @@ export function AllSignals({ d }: { d: Dataset }) {
   return (
     <>
       <SectionHead
-        label="EVIDENCE → RULE → VERIFICATION"
-        title="Tax risk signals"
-        description="Review accounting and tax reconciliation signals without inferring misconduct."
+        label="依据 → 规则 → 核验"
+        title="税务风险信号"
+        description="审查会计与税务勾稽异常，不据此认定违法或违规。"
       />
       <Notice>{DISCLAIMER}</Notice>
       <div className="signal-toolbar">
         <label className="search">
           <Search size={17} />
           <input
-            aria-label="Search risk signals"
+            aria-label="搜索风险信号"
             value={query}
-            placeholder="Search company or signal…"
+            placeholder="搜索企业或风险信号…"
             onChange={(e) => setQuery(e.target.value)}
           />
         </label>
         <select
-          aria-label="Filter severity"
+          aria-label="按提示等级筛选"
           value={severity}
           onChange={(e) => setSeverity(e.target.value)}
         >
-          <option value="">All severities</option>
-          <option>High</option>
-          <option>Medium</option>
-          <option>Low</option>
+          <option value="">全部等级</option>
+          <option value="High">高</option>
+          <option value="Medium">中</option>
+          <option value="Low">低</option>
         </select>
-        <span className="micro">{all.length} signals</span>
+        <span className="micro">{all.length} 条信号</span>
       </div>
       <div className="risk-list">
         {all.map(({ e, r }) => (
@@ -114,9 +115,7 @@ export function AllSignals({ d }: { d: Dataset }) {
         ))}
       </div>
       {!all.length && (
-        <div className="empty">
-          No matching signals. Try another search or severity.
-        </div>
+        <div className="empty">没有匹配的信号，请更换搜索词或提示等级。</div>
       )}
     </>
   );

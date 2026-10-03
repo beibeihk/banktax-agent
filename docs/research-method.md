@@ -1,56 +1,52 @@
-# Reproducible research protocol
+# 可复现研究方案
 
-## Question and estimand
+## 问题与目标量
 
-Do tax and innovation features add predictive information beyond conventional financial features **in the disclosed synthetic data-generating process**? The target is the difference in held-out predictive performance between two fixed models on the same enterprises. No causal estimand or real-world lending validity is claimed.
+在 **公开的合成数据生成机制** 下，税收与创新特征能否在传统财务信息之外增加识别信息？目标量是两个固定模型在相同企业测试集上的预测性能差异，不主张因果效应或真实授信有效性。
 
-## Cohorts and units
+## 样本与单位
 
-- Portfolio: 80 fictional enterprises × FY2022–2025, seed `20261003`, curated cases included.
-- Research: 1,600 independently generated enterprises, seed `20261004`, curated cases disabled. The model uses the final FY2025 snapshot.
-- Units: monetary values in RMB millions; ratios as fractions; outcomes are simulated following-year events.
-- Distinct `P-` and `R-` identifiers prevent portfolio/train/test overlap. Research-company names may repeat; IDs are canonical.
+- 演示客户：80 家虚构企业 × 2022–2025 年，种子 `20261003`，包含预置案例。
+- 研究样本：1,600 家独立生成企业，种子 `20261004`，关闭预置案例；使用 2025 年度快照。
+- 金额为人民币百万元，比例为小数，结果为模拟下一年度事件。
+- `P-` 与 `R-` 编号区分演示与研究企业，避免样本重叠；研究名称可能重复，以编号为准。
 
-## Label DGP
+## 标签生成机制
 
-Let `p = sigmoid(z)` and draw `Y ~ Bernoulli(p)` once per enterprise, using the seeded generator:
+令 `p = sigmoid(z)`，固定种子对每家企业抽取一次 `Y ~ Bernoulli(p)`：
 
 ```text
-z = −1.5
-    + 3.0 × (liabilities/assets − 0.5)
-    − 5.0 × operating_cash_flow/revenue
-    − 3.0 × book_profit/revenue
-    + 2.0 × loan_balance/assets
-    + 3.0 × |VAT_sales − revenue|/revenue
-    + 1.3 × (1 − tax_credit_quality)
-    − 2.0 × R&D/revenue
-    − 0.1 × log(1 + patent_count)
+z = −1.5 + 3 ×（资产负债率 − 0.5）
+    − 5 × 经营现金流 / 收入 − 3 × 会计利润 / 收入
+    + 2 × 贷款余额 / 资产 + 3 × |增值税销售额 − 收入| / 收入
+    + 1.3 ×（1 − 纳税信用编码）− 2 × 研发支出 / 收入
+    − 0.1 × log（1 + 专利数量）
 ```
 
-Tax-credit encoding: A=1, B=.75, M=.5, C=.25, D=0. This is an illustrative ordinal engineering choice, not a validated economic ordering. All coefficients and the prevalence are synthetic assumptions. Bernoulli noise prevents deterministic labels. Neither `Y` nor `p` is a model feature; `p` is not exported as a predictor.
+纳税信用编码 A=1、B=.75、M=.5、C=.25、D=0，属于演示工程设定，并非经验证的经济排序。系数与事件率均为模拟假设；伯努利噪声避免完全确定的标签。`Y` 与潜在概率 `p` 均不进入特征，`p` 不作为预测变量导出。
 
-## Models
+## 模型与划分
 
-| Model | Features |
+| 模型 | 特征 |
 |---|---|
-| A | Leverage, profit margin, cash-flow/revenue, revenue growth, loan/assets, log(1+revenue) |
-| B | All A features, plus absolute revenue–VAT gap, cash-tax burden, tax-credit encoding, R&D intensity, R&D staff ratio, log(1+patents), synthetic high-tech flag |
+| A：仅财务 | 资产负债率、利润率、经营现金流 / 收入、收入增长、贷款 / 资产、log(1+收入) |
+| B：财务 + 税务 + 创新 | A 的全部特征，加绝对收入—增值税差异、现金税负、纳税信用编码、研发强度、研发人员占比、log(1+专利)、模拟高企标记 |
 
-Fixed stratified random enterprise split: 70% training, 30% test; `random_state=20261003`. Each enterprise enters once. Identical holdout IDs are used for A and B. `StandardScaler` is fit only on training data inside a scikit-learn pipeline. Both use logistic regression, `C=1`, `max_iter=2000`, no class weighting and threshold `.5`. No hyperparameter or threshold selection is performed on the test set.
+固定一次企业层面分层随机划分，训练 70%、测试 30%，`random_state=20261003`。每家企业仅进入一次；两模型使用相同测试编号。`StandardScaler` 在 scikit-learn 管线内只拟合训练数据。逻辑回归 `C=1`、`max_iter=2000`，不加类别权重，分类阈值 0.5；不在测试集选择参数或阈值。
 
-## Reported outputs
+## 报告内容
 
-- ROC-AUC, precision, recall, F1 and Brier score on 480 held-out firms.
-- Confusion matrices: rows = observed [0,1], columns = predicted [0,1].
-- Calibration: six quantile bins; plotted at each model's own mean predicted probability.
-- Ten-repeat held-out permutation importance, measured as AUC decrease. Negative values, standard deviations and standardized logistic coefficients are retained.
-- 500 paired bootstrap holdout resamples estimate an AUC-difference percentile interval. This quantifies within-DGP sampling variation conditional on fitted models; it is not retraining uncertainty.
-- Feature mean, SD (population convention), P10, median and P90; industry sample counts and simulated event prevalence.
+- 480 家测试企业的 ROC-AUC、精确率、召回率、F1 与 Brier 分数。
+- 混淆矩阵：行为观测 [0,1]，列为预测 [0,1]。
+- 校准：6 个分位数组，分别按各模型组内平均预测概率绘图。
+- 测试集置换 10 次，以 AUC 降幅衡量重要性；保留负值、标准差及标准化回归系数。
+- 配对自助抽样 500 次，计算 AUC 差值百分位区间；仅衡量给定模型与生成机制下的抽样波动，不含重新训练的不确定性。
+- 均值、总体口径标准差、第 10 百分位、中位数、第 90 百分位、行业样本数与模拟事件率。
 
-## Interpretation limits
+## 解释边界
 
-Tax and innovation variables enter the DGP by assumption, so an augmented-model advantage partly reflects that design. A single split and generator cannot establish transportability, causal effects, economic returns, real default probabilities or bank-policy value. Correlated features complicate permutation-importance interpretation. A `.5` threshold is pedagogical, not chosen for bank costs or class prevalence. The AUC interval does not account for model-selection or DGP uncertainty.
+税收和创新变量按假设进入标签机制，扩展模型优势部分反映设计。单一生成器与一次划分不能证明可迁移性、因果效应、经济回报、真实违约概率或银行政策价值。相关特征影响置换重要性解释。0.5 阈值用于演示，未按银行成本或类别比例选择。AUC 区间不覆盖模型选择与生成机制不确定性。
 
-Before real research use, replace the simulated outcome with an authorized, prospectively defined label, audit leakage and timing, validate across time and institutions, estimate uncertainty under the sampling design, evaluate calibration and decision costs, and assess fairness and appropriate governance.
+真实研究应使用经授权、事前定义的结果标签，审查泄漏与时间顺序，开展跨时间及机构验证，按抽样设计估计不确定性，并评估校准、决策成本、公平性与治理。
 
-Run `python -m backend.pipeline` to regenerate all model metrics. The public UI displays those artifact values directly. The complete split and metrics are in `evals/results/model-comparison.json`.
+运行 `python -m backend.pipeline` 重新生成全部指标；网页直接读取产物数值。[完整结果与划分编号](../evals/results/model-comparison.json)可供核查。

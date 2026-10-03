@@ -1,29 +1,29 @@
-# Product demo: three minutes
+# 三分钟中文产品演示
 
-## 0:00–0:25 — Frame the business problem
+## 0:00–0:25：业务问题
 
-Open the landing page. Say: “BankTax-Agent brings tax economics into a corporate-banking workflow. Instead of asking a chatbot for an unexplained answer, a manager sees the data, the policy source, the rule and the next verification step. Every enterprise here is fictional.” Click **Launch Demo**.
+打开[公开网站](https://banktax-agent.hklcrgpt.chatgpt.site)，介绍：“BankTax-Agent 将税收经济学研究转化为银行对公业务工具，客户经理可以看到企业数据、政策来源、触发规则与下一步核验建议。所有企业和记录均为虚构。”点击 **进入演示**。
 
-## 0:25–1:10 — Case 1: look beyond current profitability
+## 0:25–1:10：高成长 AI 企业
 
-Open **High-growth AI company / Xinglan AI**. Show revenue growth, low current profit margin and persistent R&D. Scroll to the evidence brief. Expand **agent orchestration & evidence trace**. Open **Innovation** and show the weight and formula for each score component. Say: “This is a basis for discussing investment and cash needs; neither innovation nor tax status creates an automatic loan approval.”
+打开 **深圳星澜智能科技**，展示收入增长、较低当期利润率与持续研发投入。滚动至 **客户经理证据简报**，展开 **查看智能体编排与证据轨迹**。点击 **创新画像**，展示分项、权重与公式。说明：“这些信息为投资与资金需求沟通提供依据，创新评分与高企标记不能自动带来贷款审批。”
 
-## 1:10–1:45 — Case 2: evidence before an allegation
+## 1:10–1:45：先核验依据，再形成判断
 
-Open **Chengyuan Industrial → Tax & signals**. Show the 36% revenue–VAT gap, explicit rule threshold, revenue-recognition / export / entity-scope explanations and recommended reconciliation steps. Emphasize: “An alert is a question for verification, not a conclusion that a company broke the law.”
+打开 **东莞澄远工业装备 → 税务与核验**，展示 36% 收入与增值税销售额差异、演示阈值、收入确认时点、出口及主体范围等合理解释与核验步骤。强调：“提示提出的是核验问题，不能据此认定企业违法。”
 
-## 1:45–2:20 — Case 3: source-backed opportunities
+## 1:45–2:20：有来源的政策机会
 
-Open **Yuntuo Robotics**. Show the R&D deduction opportunity and expand the conditions/source record. Point out accounting R&D versus eligible tax R&D and high-tech versus approved-manufacturing-list status. Open the original policy. A current deadline or status must be checked separately; archived notices are excluded from active matching.
+打开 **深圳云拓机器人**，展示 **研发费用加计扣除**，展开 **适用条件与来源记录**，打开 **政策原文**。说明会计研发与合格税法费用的区别，以及高企资质与制造业批准名单的区别。当前期限及产品状态须另行核验；已结束的认定批次不进入当前机会匹配。
 
-## 2:20–3:00 — Research and engineering
+## 2:20–3:00：研究与工程
 
-Switch to **Research Mode**. Explain the independent synthetic cohort, identical test firms, financial baseline and augmented feature set. Show AUC, Brier, calibration and held-out permutation importance. Say: “These numbers are actually computed, but the tax and innovation effects are built into a disclosed simulation. This demonstrates research design and engineering, not evidence about real banks.” Finish with **Evaluation & methods**, showing the actual 45-check report and the repository.
+切换 **研究模式**，说明独立合成研究样本、相同测试企业、财务基线与扩展特征。展示 AUC、Brier 分数、校准与测试集置换重要性。说明：“指标来自实际计算，但税收与创新效应已写入公开的模拟机制。这展示研究设计与工程能力，不能作为真实银行的实证结果。”最后进入 **评估与方法**，展示实际 45 项检查及仓库。
 
-## Thirty-second Chinese interview pitch
+## 三十秒面试介绍
 
-我把企业税收研究转成了一个商业银行对公业务原型。客户经理可以在同一页面查看企业财务、涉税异常和持续研发投入，每个信号都附带数据证据、政策来源和核验建议。系统包含 80 家虚构企业、六类职责明确的 Agent，以及可复现的信贷模型对比和自动化评测。公开 Demo 无需注册或 API Key。我特别区分了政策线索与真实资格、异常信号与违法结论，也明确说明合成实验不能替代真实银行实证。
+我把企业税收研究转成了商业银行对公业务原型。客户经理可以在同一页面查看财务、涉税信号和持续研发投入，每个信号附有数据证据、政策来源和核验建议。系统包含 80 家虚构企业、六类职责明确的智能体、可复现信贷模型比较与自动化评估。公开演示无需注册或 API 密钥。我区分了政策线索与真实资格、异常信号与违法结论，并明确说明合成实验不能替代真实银行实证。
 
-## Suggested CV bullet
+## 简历表述建议
 
-独立开发并公开部署 BankTax-Agent 企业涉税与科技金融决策支持原型，整合 80 家虚构企业四年面板、六类 Agent、可解释税务规则和官方政策检索，构建可复现的合成信贷模型比较、45 项评测与前后端/浏览器测试，形成可直接演示的客户经理工作台与 Research Mode。
+独立开发并公开部署 BankTax-Agent 企业涉税与科技金融决策支持原型，整合 80 家虚构企业四年面板、六类智能体、可解释税务规则和官方政策检索，构建可复现的合成信贷模型比较、45 项评估与前后端及浏览器测试，形成中文客户经理工作台与研究模式。

@@ -19,7 +19,7 @@ def main():
     def check(category, name, fn):
         try:
             ok = bool(fn())
-            detail = "Passed" if ok else "Expectation not met"
+            detail = "通过" if ok else "未满足预期"
         except Exception as exc:
             ok, detail = False, type(exc).__name__
         results.append({"category": category, "name": name, "passed": ok, "detail": detail})
@@ -59,7 +59,7 @@ def main():
     ]:
         check(
             "tax_calculation",
-            f"R&D {rd} at {rate}",
+            f"研发支出 {rd} 百万元，税率 {rate}",
             lambda rd=rd, rate=rate, expected=expected: calculate_rd(rd, rate)["illustrative_tax_effect"]
             == expected,
         )
@@ -68,7 +68,7 @@ def main():
         e["vat_sales"] = e["revenue"] * ratio
         check(
             "risk_rules",
-            f"VAT ratio {ratio}",
+            f"增值税销售额 / 收入比例 {ratio}",
             lambda e=e, flag=flag: any(r["code"] == "VAT_GAP" for r in risk_signals(e, firms)) == flag,
         )
     changes = [
@@ -108,27 +108,27 @@ def main():
         check("hallucination_abstention", q, lambda q=q: retrieve(q)["status"] == "insufficient_evidence")
     check(
         "regression",
-        "Archived Shenzhen notice excluded",
+        "排除已结束的深圳认定批次",
         lambda: not active(next(p for p in POLICIES if p["id"] == "sz-recognition-2026")),
     )
     check(
         "regression",
-        "2026 VAT excluded before effective date",
+        "生效前排除 2026 年增值税政策",
         lambda: not active(next(p for p in POLICIES if p["id"] == "small-vat-2026-10"), "2025-12-31"),
     )
     check(
         "regression",
-        "80 unique synthetic enterprises",
+        "80 家独立合成企业",
         lambda: len({e["enterprise_id"] for e in firms}) == 80 and all(e["synthetic"] for e in firms),
     )
     check(
         "regression",
-        "Case 2 flags VAT reconciliation",
+        "案例二触发增值税勾稽提示",
         lambda: any(r["code"] == "VAT_GAP" for r in firms[1]["risks"]),
     )
     check(
         "regression",
-        "Scores reconstruct",
+        "评分可由分项重建",
         lambda: all(
             abs(innovation(e)["score"] - sum(c["points"] for c in innovation(e)["components"])) < 0.051
             for e in firms
@@ -138,9 +138,9 @@ def main():
     e["approved_manufacturing_list"] = False
     check(
         "regression",
-        "Manufacturing approved-list evidence required",
+        "先进制造业优惠须具备名单依据",
         lambda: next(o for o in opportunities(e) if o["policy_id"] == "manufacturing-vat-43")["status"]
-        == "Missing list evidence",
+        == "缺少名单依据",
     )
     categories = {}
     for r in results:
@@ -149,14 +149,14 @@ def main():
         c["passed"] += int(r["passed"])
     root = Path(__file__).resolve().parents[1]
     report = {
-        "suite": "BankTax-Agent deterministic eval v1",
+        "suite": "BankTax-Agent 确定性评估 v1",
         "total": len(results),
         "passed": sum(r["passed"] for r in results),
         "failed": sum(not r["passed"] for r in results),
         "categories": categories,
         "checks": results,
         "policy_sha256": hashlib.sha256((root / "data/policies.json").read_bytes()).hexdigest(),
-        "scope": "Deterministic engine behavior and curated citation provenance only. No live LLM accuracy or legal eligibility benchmark.",
+        "scope": "仅评估确定性引擎行为及精选引用溯源，不评价实时大模型准确率或法定资格。",
     }
     write_json(root / "evals/results/evaluation.json", report)
     write_json(root / "public/data/evaluation.json", report)

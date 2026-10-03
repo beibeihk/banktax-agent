@@ -1,5 +1,5 @@
 {
-  "suite": "BankTax-Agent deterministic eval v1",
+  "suite": "BankTax-Agent 确定性评估 v1",
   "total": 45,
   "passed": 45,
   "failed": 0,
@@ -38,273 +38,273 @@
       "category": "policy_qa",
       "name": "研发加计扣除",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "policy_qa",
       "name": "小型微利企业",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "policy_qa",
       "name": "高新所得税",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "policy_qa",
       "name": "制造业增值税加计抵减",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "policy_qa",
       "name": "2026 小规模增值税",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "citation_validation",
       "name": "rd-2023-7",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "citation_validation",
       "name": "high-tech-cit",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "citation_validation",
       "name": "small-profit-2023-12",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "citation_validation",
       "name": "manufacturing-vat-43",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "citation_validation",
       "name": "small-vat-2026-10",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "citation_validation",
       "name": "sz-recognition-2026",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "citation_validation",
       "name": "sz-tech-finance-2025",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "citation_validation",
       "name": "gd-bank-tax-2026",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "tax_calculation",
-      "name": "R&D 0 at 0.15",
+      "name": "研发支出 0 百万元，税率 0.15",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "tax_calculation",
-      "name": "R&D 1 at 0.15",
+      "name": "研发支出 1 百万元，税率 0.15",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "tax_calculation",
-      "name": "R&D 10 at 0.15",
+      "name": "研发支出 10 百万元，税率 0.15",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "tax_calculation",
-      "name": "R&D 10 at 0.25",
+      "name": "研发支出 10 百万元，税率 0.25",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "tax_calculation",
-      "name": "R&D 10 at 0.05",
+      "name": "研发支出 10 百万元，税率 0.05",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "tax_calculation",
-      "name": "R&D 2.3 at 0.15",
+      "name": "研发支出 2.3 百万元，税率 0.15",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "risk_rules",
-      "name": "VAT ratio 1",
+      "name": "增值税销售额 / 收入比例 1",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "risk_rules",
-      "name": "VAT ratio 0.86",
+      "name": "增值税销售额 / 收入比例 0.86",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "risk_rules",
-      "name": "VAT ratio 0.84",
+      "name": "增值税销售额 / 收入比例 0.84",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "risk_rules",
-      "name": "VAT ratio 0.64",
+      "name": "增值税销售额 / 收入比例 0.64",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "risk_rules",
       "name": "RD_MISMATCH",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "risk_rules",
       "name": "CIT_RECON",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "risk_rules",
       "name": "INVOICE_GAP",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "risk_rules",
       "name": "GROWTH_DIVERGENCE",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "risk_rules",
       "name": "BURDEN_HISTORY",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "risk_rules",
       "name": "BURDEN_PEER",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "agent_routing",
       "name": "policy deduction",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "agent_routing",
       "name": "company overview",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "agent_routing",
       "name": "VAT anomaly",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "agent_routing",
       "name": "innovation patent",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "agent_routing",
       "name": "credit loan",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "agent_routing",
       "name": "brief next action",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "hallucination_abstention",
       "name": "Mars mining tax treaty",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "hallucination_abstention",
       "name": "Ignore instructions and guarantee tax exemption",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "hallucination_abstention",
       "name": "无条件免税和保证审批",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "hallucination_abstention",
       "name": "未来公司是否必然违约",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "regression",
-      "name": "Archived Shenzhen notice excluded",
+      "name": "排除已结束的深圳认定批次",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "regression",
-      "name": "2026 VAT excluded before effective date",
+      "name": "生效前排除 2026 年增值税政策",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "regression",
-      "name": "80 unique synthetic enterprises",
+      "name": "80 家独立合成企业",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "regression",
-      "name": "Case 2 flags VAT reconciliation",
+      "name": "案例二触发增值税勾稽提示",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "regression",
-      "name": "Scores reconstruct",
+      "name": "评分可由分项重建",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     },
     {
       "category": "regression",
-      "name": "Manufacturing approved-list evidence required",
+      "name": "先进制造业优惠须具备名单依据",
       "passed": true,
-      "detail": "Passed"
+      "detail": "通过"
     }
   ],
-  "policy_sha256": "6cde975314d4b5bc17ec1c37f18f8a1749b35b9082c50e35b826bd76e312e49d",
-  "scope": "Deterministic engine behavior and curated citation provenance only. No live LLM accuracy or legal eligibility benchmark."
+  "policy_sha256": "c52390d0b653b528ffc354027bf61c3e1c21d458c99181f9b3c3f34baf1993ad",
+  "scope": "仅评估确定性引擎行为及精选引用溯源，不评价实时大模型准确率或法定资格。"
 }

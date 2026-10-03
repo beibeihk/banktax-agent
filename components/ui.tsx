@@ -1,4 +1,5 @@
 import { Info, ChevronRight, ShieldCheck, Lightbulb } from "lucide-react";
+import { companyName } from "@/lib/labels";
 import type { Dataset } from "@/lib/domain";
 export const repo = "https://github.com/beibeihk/banktax-agent";
 export function Brand() {
@@ -93,17 +94,16 @@ export function Cases({ d }: { d: Dataset }) {
           <div className="case-top">
             <span className="case-number">0{i + 1}</span>
             <Badge tone={i === 1 ? "amber" : "teal"}>
-              {["Tech finance", "Tax signals", "Policy intelligence"][i]}
+              {["科技金融", "涉税信号", "税收政策智能"][i]}
             </Badge>
           </div>
           <h3>{c.title}</h3>
           <p>{c.subtitle}</p>
           <div className="case-bottom">
             <span>
-              {
-                d.enterprises.find((e) => e.enterprise_id === c.enterprise_id)
-                  ?.name_en
-              }
+              {companyName(
+                d.enterprises.find((e) => e.enterprise_id === c.enterprise_id),
+              )}
             </span>
             <ChevronRight size={17} />
           </div>
@@ -117,14 +117,11 @@ export function PortfolioCallout() {
     <div className="portfolio-callout">
       <Lightbulb size={22} />
       <div>
-        <strong>Innovation can change the conversation.</strong>
-        <span>
-          Review R&D persistence and IP alongside cash flow. A policy lead is a
-          prompt for diligence.
-        </span>
+        <strong>创新投入为融资沟通提供更多线索。</strong>
+        <span>结合现金流审查研发持续性与知识产权。政策线索应进一步核验。</span>
       </div>
       <a href="#company/P-001">
-        Explore Xinglan AI <ChevronRight size={16} />
+        查看星澜智能科技 <ChevronRight size={16} />
       </a>
     </div>
   );
@@ -133,9 +130,9 @@ export function SyntheticNotice() {
   return (
     <div className="synthetic-bar">
       <span>
-        <ShieldCheck size={14} /> All company records are synthetic / fictional.
+        <ShieldCheck size={14} /> 所有企业记录均为合成、虚构数据。
       </span>
-      <span>Enterprise data: FY2025 · Policy snapshot: 03 Oct 2026</span>
+      <span>企业数据：2025 年度 · 政策快照：2026 年 10 月 3 日</span>
     </div>
   );
 }

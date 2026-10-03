@@ -11,6 +11,7 @@ import {
   Lightbulb,
   ExternalLink,
 } from "lucide-react";
+import { label, companyName, companyMark } from "@/lib/labels";
 import { DISCLAIMER, pct, money, burden, download } from "@/lib/domain";
 import type { Dataset, Enterprise } from "@/lib/domain";
 import { Badge, Metric, Notice, repo } from "./ui";
@@ -21,8 +22,8 @@ export function Scorecard({ e }: { e: Enterprise }) {
   return (
     <section className="panel">
       <div className="panel-head">
-        <h2>Innovation scorecard</h2>
-        <Badge>Explainable / illustrative</Badge>
+        <h2>创新评分卡</h2>
+        <Badge>可解释 / 演示评分</Badge>
       </div>
       <div className="score-layout">
         <div className="score-total">
@@ -30,11 +31,11 @@ export function Scorecard({ e }: { e: Enterprise }) {
             {e.innovation.score.toFixed(0)}
             <span>/100</span>
           </strong>
-          <div>Innovation profile</div>
+          <div>创新画像</div>
           <p>
-            Weights are explicit.
+            权重公开。
             <br />
-            Eligibility is reviewed separately.
+            政策资格另行核验。
           </p>
         </div>
         <div className="score-components">
@@ -62,34 +63,30 @@ export function Credit({ e }: { e: Enterprise }) {
   return (
     <section className="panel">
       <div className="panel-head">
-        <h2>Credit decision support</h2>
-        <Badge>Simulated outcome</Badge>
+        <h2>信贷决策支持</h2>
+        <Badge>模拟结果</Badge>
       </div>
       <div className="credit-comparison">
         <div>
-          <span>Financial only</span>
+          <span>仅财务信息</span>
           <strong>{pct(e.credit.financial_only)}</strong>
-          <small>Model A · 6 features</small>
+          <small>模型 A · 6 项特征</small>
         </div>
         <div>
-          <span>Financial + tax + innovation</span>
+          <span>财务 + 税务 + 创新信息</span>
           <strong>{pct(e.credit.augmented)}</strong>
-          <small>Model B · 13 features</small>
+          <small>模型 B · 13 项特征</small>
         </div>
       </div>
       <div className="panel-body">
         <p>
-          Probabilities refer to the simulated following-year label, with no
-          real-world PD interpretation. Review cash flow, exposure and financing
-          purpose before a lending discussion.
+          概率对应模拟的下一年度风险事件，不能解释为真实违约概率。融资沟通前须审查现金流、敞口与资金用途。
         </p>
         <a className="subtle-link" href="#research">
-          Inspect models, calibration & assumptions <ChevronRight size={15} />
+          查看模型、校准与假设 <ChevronRight size={15} />
         </a>
       </div>
-      <div className="panel-note">
-        No lending recommendation, approval or limit is generated.
-      </div>
+      <div className="panel-note">系统不生成贷款建议、审批结论或授信额度。</div>
     </section>
   );
 }
@@ -106,14 +103,11 @@ export function Brief({ e }: { e: Enterprise }) {
         `${api}/api/enterprises/${e.enterprise_id}/live-brief`,
         { method: "POST" },
       );
-      if (!r.ok)
-        throw new Error(
-          "Live AI is unavailable. The evidence brief below remains available.",
-        );
+      if (!r.ok) throw new Error("实时 AI 暂不可用，下方证据简报仍可查看。");
       const data = await r.json();
       setLive(JSON.stringify(data, null, 2));
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Live AI is unavailable.");
+      setError(err instanceof Error ? err.message : "实时 AI 暂不可用。");
     } finally {
       setBusy(false);
     }
@@ -122,25 +116,25 @@ export function Brief({ e }: { e: Enterprise }) {
     <section className="panel brief">
       <div className="panel-head">
         <h2>
-          <Cpu size={19} /> Relationship manager brief
+          <Cpu size={19} /> 客户经理证据简报
         </h2>
-        <Badge tone="teal">Deterministic evidence brief</Badge>
+        <Badge tone="teal">基于已计算证据</Badge>
       </div>
       <div className="brief-grid">
         <div>
-          <h4>What’s happening</h4>
+          <h4>经营概况</h4>
           <p>{e.brief.whats_happening}</p>
         </div>
         <div>
-          <h4>Opportunities</h4>
+          <h4>业务机会</h4>
           <p>{e.brief.opportunities}</p>
         </div>
         <div>
-          <h4>Signals to verify</h4>
+          <h4>待核验信号</h4>
           <p>{e.brief.risks}</p>
         </div>
         <div>
-          <h4>Recommended next actions</h4>
+          <h4>建议下一步行动</h4>
           <ol>
             {e.brief.next_actions.map((x) => (
               <li key={x}>{x}</li>
@@ -149,14 +143,14 @@ export function Brief({ e }: { e: Enterprise }) {
         </div>
       </div>
       <details className="agent-trace">
-        <summary>Inspect agent orchestration & evidence trace</summary>
+        <summary>查看智能体编排与证据轨迹</summary>
         <div className="trace-grid">
           {e.brief.trace.map((a, i) => (
-            <div key={a.agent}>
+            <div key={label(a.agent)}>
               <span>{i + 1}</span>
               <div>
-                <strong>{a.agent}</strong>
-                <small>{a.tool}</small>
+                <strong>{label(a.agent)}</strong>
+                <small>{label(a.tool)}</small>
                 <p>{a.result}</p>
               </div>
             </div>
@@ -165,22 +159,22 @@ export function Brief({ e }: { e: Enterprise }) {
       </details>
       <div className="brief-footer">
         <span className="micro">
-          Public demo briefs use computed facts and no LLM calls.
+          公开演示简报使用已计算事实，不调用大语言模型。
         </span>
         {api ? (
           <button className="button compact" disabled={busy} onClick={generate}>
-            {busy ? "Generating…" : "Generate live AI brief"}
+            {busy ? "正在生成…" : "生成实时 AI 简报"}
           </button>
         ) : (
           <a href={`${repo}#live-ai-mode`} target="_blank" rel="noreferrer">
-            Live AI setup <ExternalLink size={13} />
+            实时 AI 配置说明 <ExternalLink size={13} />
           </a>
         )}
       </div>
       {error && <Notice>{error}</Notice>}
       {live && (
         <details open>
-          <summary>Live model output · human review required</summary>
+          <summary>实时模型输出 · 须经人工审查</summary>
           <pre className="live-output">{live}</pre>
         </details>
       )}
@@ -198,36 +192,35 @@ export function Company({
 }) {
   const matchedCase = d.cases.find((c) => c.enterprise_id === e.enterprise_id);
   const tabs = [
-    { id: "company", label: "Overview" },
-    { id: "risks", label: "Tax & signals" },
-    { id: "innovation", label: "Innovation" },
-    { id: "credit", label: "Credit support" },
+    { id: "company", label: "概览" },
+    { id: "risks", label: "税务与核验" },
+    { id: "innovation", label: "创新画像" },
+    { id: "credit", label: "信贷支持" },
   ];
   return (
     <>
       <div className="back-row">
-        <a href="#companies">Enterprise portfolio</a>
+        <a href="#companies">企业客户列表</a>
         <ChevronRight size={14} />
         <span>{e.enterprise_id}</span>
       </div>
       <div className="company-heading">
-        <div className="firm-logo large">
-          {e.name_en.slice(0, 2).toUpperCase()}
-        </div>
+        <div className="firm-logo large">{companyMark(e)}</div>
         <div>
           <div className="company-title">
-            <h1>{e.name_en}</h1>
-            <Badge>Fictional enterprise</Badge>
+            <h1>{companyName(e)}</h1>
+            <Badge>虚构企业</Badge>
           </div>
           <p>{e.company_name}</p>
           <div className="company-meta">
-            {e.city}
+            {label(e.city)}
             <span>·</span>
-            {e.industry}
-            <span>·</span>FY {e.year}
+            {label(e.industry)}
+            <span>·</span>
+            {e.year} 年度
             {e.high_tech_status && (
               <Badge tone="teal">
-                <BadgeCheck size={12} /> Synthetic high-tech flag
+                <BadgeCheck size={12} /> 模拟高企标记
               </Badge>
             )}
           </div>
@@ -236,24 +229,24 @@ export function Company({
           className="button secondary"
           onClick={() =>
             download(
-              `${e.enterprise_id}-evidence-report.json`,
+              `${e.enterprise_id}-企业证据.json`,
               JSON.stringify({ disclaimer: DISCLAIMER, ...e }, null, 2),
             )
           }
         >
-          <Download size={16} /> Export evidence
+          <Download size={16} /> 导出企业证据
         </button>
       </div>
       {matchedCase && (
         <div className="case-banner">
           <Lightbulb size={19} />
           <div>
-            <strong>Demo case · {matchedCase.title}</strong>
+            <strong>演示案例 · {matchedCase.title}</strong>
             <span>{matchedCase.question}</span>
           </div>
         </div>
       )}
-      <nav className="company-tabs" aria-label="Company sections">
+      <nav className="company-tabs" aria-label="企业分析栏目">
         {tabs.map((t) => (
           <a
             key={t.id}
@@ -266,27 +259,27 @@ export function Company({
       </nav>
       <div className="metrics four">
         <Metric
-          label="Revenue"
+          label="营业收入"
           value={money(e.revenue)}
-          detail={`Growth ${pct(e.revenue_growth)}`}
+          detail={`同比增长 ${pct(e.revenue_growth)}`}
           icon={<Activity size={17} />}
         />
         <Metric
-          label="Profit"
+          label="利润"
           value={money(e.profit)}
-          detail={`Margin ${pct(e.profit / e.revenue)}`}
+          detail={`利润率 ${pct(e.profit / e.revenue)}`}
           icon={<Landmark size={17} />}
         />
         <Metric
-          label="R&D intensity"
+          label="研发强度"
           value={pct(e.rd_intensity)}
-          detail={`${money(e.rd_expense)} invested`}
+          detail={`${money(e.rd_expense)} 研发投入`}
           icon={<Cpu size={17} />}
         />
         <Metric
-          label="Cash-tax burden"
+          label="现金税负"
           value={pct(burden(e))}
-          detail="(VAT paid + CIT paid) / revenue"
+          detail="（实缴增值税 + 实缴企业所得税）/ 收入"
           icon={<ShieldCheck size={17} />}
         />
       </div>
@@ -295,47 +288,46 @@ export function Company({
           <div className="two-col">
             <section className="panel">
               <div className="panel-head">
-                <h2>Financial trajectory</h2>
-                <span className="micro">RMB millions · 2022–2025</span>
+                <h2>财务变化趋势</h2>
+                <span className="micro">金额：百万元 · 2022–2025 年</span>
               </div>
               <HistoryChart e={e} />
               <div className="financial-mini">
                 <div>
-                  <span>Assets</span>
+                  <span>资产总额</span>
                   <strong>{money(e.total_assets)}</strong>
                 </div>
                 <div>
-                  <span>Leverage</span>
+                  <span>资产负债率</span>
                   <strong>{pct(e.liabilities / e.total_assets)}</strong>
                 </div>
                 <div>
-                  <span>Operating cash flow</span>
+                  <span>经营现金流</span>
                   <strong>{money(e.cash_flow)}</strong>
                 </div>
               </div>
             </section>
             <section className="panel tax-summary">
               <div className="panel-head">
-                <h2>Tax profile</h2>
-                <Badge tone="teal">Credit grade {e.tax_credit_grade}</Badge>
+                <h2>税务画像</h2>
+                <Badge tone="teal">纳税信用 {e.tax_credit_grade} 级</Badge>
               </div>
               <dl className="indicator-list">
-                <dt>VAT sales</dt>
+                <dt>增值税申报销售额</dt>
                 <dd>{money(e.vat_sales)}</dd>
-                <dt>VAT cash payments</dt>
+                <dt>实缴增值税</dt>
                 <dd>{money(e.vat_paid)}</dd>
-                <dt>CIT cash payments</dt>
+                <dt>实缴企业所得税</dt>
                 <dd>{money(e.cit_paid)}</dd>
-                <dt>Synthetic taxable income</dt>
+                <dt>模拟应纳税所得额</dt>
                 <dd>{money(e.taxable_income)}</dd>
-                <dt>Sales invoices</dt>
+                <dt>销项开票金额</dt>
                 <dd>{money(e.invoice_sales)}</dd>
-                <dt>Purchase invoices</dt>
+                <dt>购进开票金额</dt>
                 <dd>{money(e.invoice_purchase)}</dd>
               </dl>
               <div className="panel-note">
-                Book profit and taxable income differ. Amounts are in RMB
-                millions.
+                会计利润与应纳税所得额口径不同。金额按万元或亿元显示，底层数据单位为百万元。
               </div>
             </section>
           </div>
@@ -351,21 +343,17 @@ export function Company({
           <Notice>{DISCLAIMER}</Notice>
           <div className="section-inline">
             <h2>
-              Reconciliation signals{" "}
-              <span className="count">{e.risks.length}</span>
+              勾稽核验信号 <span className="count">{e.risks.length}</span>
             </h2>
-            <span className="micro">Illustrative rules · R1–R6</span>
+            <span className="micro">演示规则 · R1–R6</span>
           </div>
           {e.risks.length ? (
             e.risks.map((r) => <RiskCard key={r.code} risk={r} />)
           ) : (
             <div className="panel empty">
               <ShieldCheck />
-              <h3>No configured tax rule is triggered</h3>
-              <p>
-                This does not establish compliance. Review data completeness and
-                business context.
-              </p>
+              <h3>未触发已配置的涉税规则</h3>
+              <p>这并不能证明合规，仍须审查数据完整性与业务背景。</p>
             </div>
           )}
         </>
@@ -375,44 +363,43 @@ export function Company({
           <Scorecard e={e} />
           <section className="panel">
             <div className="panel-head">
-              <h2>Innovation evidence</h2>
-              <Badge>All indicators simulated</Badge>
+              <h2>创新依据</h2>
+              <Badge>全部指标均为模拟</Badge>
             </div>
             <div className="innovation-evidence">
               <div>
-                <span>R&D growth</span>
+                <span>研发支出增长率</span>
                 <strong>{pct(e.rd_growth)}</strong>
               </div>
               <div>
-                <span>R&D staff ratio</span>
+                <span>研发人员占比</span>
                 <strong>{pct(e.rd_staff_ratio)}</strong>
               </div>
               <div>
-                <span>Patent stock / growth</span>
+                <span>专利存量 / 新增</span>
                 <strong>
                   {e.patents} / +{e.patent_growth}
                 </strong>
               </div>
               <div>
-                <span>Specialized SME flag</span>
-                <strong>{e.specialized_sme ? "Yes" : "No"}</strong>
+                <span>专精特新企业标记</span>
+                <strong>{e.specialized_sme ? "是" : "否"}</strong>
               </div>
               <div>
-                <span>Government innovation flag</span>
+                <span>政府创新指标标记</span>
                 <strong>
-                  {e.government_innovation_indicator ? "Yes" : "No"}
+                  {e.government_innovation_indicator ? "是" : "否"}
                 </strong>
               </div>
               <div>
-                <span>High-tech flag</span>
-                <strong>{e.high_tech_status ? "Yes" : "No"}</strong>
+                <span>高新技术企业标记</span>
+                <strong>{e.high_tech_status ? "是" : "否"}</strong>
               </div>
             </div>
             <div className="panel-body">
               <p>{e.innovation.interpretation}</p>
               <p className="micro">
-                Patent counts do not establish IP quality or pledgeability.
-                Government and qualification flags are synthetic.
+                专利数量不能证明知识产权质量或可质押性，政府与资格标记均为模拟。
               </p>
             </div>
           </section>
@@ -426,11 +413,10 @@ export function Company({
       )}
       <div className="section-inline">
         <h2>
-          Policy opportunities{" "}
-          <span className="count">{e.opportunities.length}</span>
+          政策机会 <span className="count">{e.opportunities.length}</span>
         </h2>
         <a className="subtle-link" href="#policies">
-          Full policy library <ChevronRight size={14} />
+          完整政策资料库 <ChevronRight size={14} />
         </a>
       </div>
       <div className="policy-grid">
@@ -447,9 +433,7 @@ export function Company({
         })}
       </div>
       <Notice>
-        Screening identifies candidate opportunities. Certification, eligible
-        expense scope, annual averages, approved lists and current programme
-        availability require evidence.
+        筛选仅识别候选机会。资质认定、合格费用范围、年度平均指标、批准名单及当前项目可用性均须提供证据。
       </Notice>
     </>
   );

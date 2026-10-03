@@ -48,6 +48,7 @@ def test_valid_provider_response(configured, monkeypatch):
     assert str(requests[0].url) == "https://mock.invalid/v1/chat/completions"
     assert body["model"] == "mock-model"
     assert body["response_format"] == {"type": "json_object"}
+    assert "Simplified Chinese" in body["messages"][0]["content"]
     facts = json.loads(body["messages"][1]["content"])
     assert facts["synthetic"] is True
     assert "next_year_risk_label" not in facts
@@ -71,7 +72,7 @@ def test_provider_failures_are_sanitized(configured, monkeypatch, failure):
     provider(monkeypatch, handler)
     with pytest.raises(llm.AIUnavailable) as error:
         asyncio.run(llm.live_brief(configured))
-    assert "Use the deterministic brief" in str(error.value)
+    assert "请使用已计算的证据简报" in str(error.value)
     assert "private-upstream-detail" not in str(error.value)
     assert "mock-provider-key" not in str(error.value)
 
@@ -83,5 +84,5 @@ def test_insecure_remote_endpoint_is_rejected(configured, monkeypatch):
         pytest.fail("Insecure endpoint must be rejected before any provider call")
 
     provider(monkeypatch, unexpected_request)
-    with pytest.raises(llm.AIUnavailable, match="HTTPS or local HTTP"):
+    with pytest.raises(llm.AIUnavailable, match="HTTPS 或本机 HTTP"):
         asyncio.run(llm.live_brief(configured))

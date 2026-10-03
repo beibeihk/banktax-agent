@@ -16,9 +16,7 @@ from backend.policy import AS_OF, POLICIES, calculate_rd, retrieve
 from backend.store import enterprise, snapshot
 
 load_dotenv()
-app = FastAPI(
-    title="BankTax-Agent", version="1.0.0", description="Independent synthetic-data decision-support API"
-)
+app = FastAPI(title="BankTax-Agent", version="1.0.0", description="独立开发的合成数据决策支持 API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=os.getenv(
@@ -44,7 +42,7 @@ class RDCalculation(BaseModel):
 def get_enterprise(eid):
     e = enterprise(eid)
     if e is None:
-        raise HTTPException(404, "Synthetic enterprise not found")
+        raise HTTPException(404, "未找到合成企业")
     return e
 
 
@@ -110,7 +108,7 @@ async def live(enterprise_id: EnterpriseId, request: Request):
     while queue and now - queue[0] > 60:
         queue.popleft()
     if len(queue) >= 6:
-        raise HTTPException(429, "Live AI rate limit reached; use the cached evidence brief.")
+        raise HTTPException(429, "实时 AI 请求已达限额，请使用已保存的证据简报。")
     queue.append(now)
     try:
         return await live_brief(e)

@@ -2,8 +2,6 @@
 
 **面向商业银行对公业务的企业涉税智能、科技金融识别与风险决策支持系统**
 
-Enterprise Tax Intelligence & Bank-Tax Risk Agent
-
 将企业税收、财务与创新信号转化为有依据、可解释、可核验的银行业务信息。
 
 [**直接打开公开演示网站**](https://banktax-agent.hklcrgpt.chatgpt.site) · [English README](README.en.md) · [面试演示脚本](docs/demo-script.md) · [研究方法与边界](docs/research-method.md)
@@ -27,7 +25,7 @@ BankTax-Agent 将这一业务流程做成可体验的产品原型：从企业财
 
 **网站地址：[https://banktax-agent.hklcrgpt.chatgpt.site](https://banktax-agent.hklcrgpt.chatgpt.site)**
 
-网站已设为公开访问。朋友、同事和招聘人员可以直接打开，无需注册、安装软件或填写 API Key，电脑和手机均可体验。网页当前主要采用英文界面；本 README 以中文说明业务价值、演示路径和技术边界。
+网站已设为公开访问。朋友、同事和招聘人员可以直接打开，无需注册、安装软件或填写 API 密钥，电脑和手机均可体验。网站默认采用简体中文，导航、企业画像、证据简报、风险解释、政策条件、图表和研究说明均已中文化。README、演示脚本、数据字典与安全说明也使用中文；另提供英文 README。
 
 建议先进入客户经理工作台，再依次打开三个预置案例：
 
@@ -142,7 +140,7 @@ flowchart TD
 - 金额单位为**人民币百万元**；比例采用小数，专利和员工采用数量。
 - 收入、研发、利润、税基调整、增值税进销项假设、资产负债等具有明确关系；专门设置了勾稽差异案例。数据不代表中国企业总体分布。
 - 所有资质标记、税收信用等级、政府创新指标和风险标签均为模拟。企业名附有 `（虚构）`，与真实企业重名属巧合。
-- 可下载：[企业面板 CSV](public/data/enterprise-panel.csv)、[企业面板 JSON](data/enterprise_panel.json)、[研究样本](data/research-cohort.csv)、[数据字典](docs/data-dictionary.md)、[哈希清单](data/manifest.json)。
+- 可下载：[中文企业面板 CSV](public/data/enterprise-panel.zh-CN.csv)、[原始字段 CSV（用于代码复现）](public/data/enterprise-panel.csv)、[企业面板 JSON](data/enterprise_panel.json)、[研究样本](data/research-cohort.csv)、[数据字典](docs/data-dictionary.md)、[哈希清单](data/manifest.json)。中文 CSV 使用中文表头、行业、城市与布尔标记，保留相同数值和百万元单位。
 - [8 条公开来源记录](data/policies.json)区分正式政策、指南、通知和方向性报告，核验快照日期为 **2026 年 10 月 3 日**。
 - 小规模纳税人 VAT 记录采用 2026 年第 10 号公告。深圳高企认定通知最后批次于 2026 年 9 月 4 日结束，作为历史材料保留，已排除当前机会匹配。
 - FY2025 财税数据和 2026 年政策机会快照承担不同时间角色；后续政策不追溯应用于生成的 FY2025 税款。

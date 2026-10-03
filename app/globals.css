@@ -9,7 +9,8 @@
   --amber: #b66d10;
   --red: #b34235;
   --white: #fff;
-  --font: "DM Sans", Arial, "Microsoft YaHei", sans-serif;
+  --font:
+    "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
 }
 * {
   box-sizing: border-box;

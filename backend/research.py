@@ -42,8 +42,8 @@ def fit_experiment(portfolio: list[dict]) -> tuple[dict, list[dict]]:
     models = []
     probabilities = []
     for label, features in [
-        ("A · Financial only", FINANCIAL),
-        ("B · Financial + tax + innovation", FINANCIAL + TAX + INNOVATION),
+        ("A · 仅财务信息", FINANCIAL),
+        ("B · 财务 + 税务 + 创新信息", FINANCIAL + TAX + INNOVATION),
     ]:
         x = matrix(sample, features)
         model = make_pipeline(StandardScaler(), LogisticRegression(C=1, max_iter=2000, random_state=SEED))
@@ -89,7 +89,7 @@ def fit_experiment(portfolio: list[dict]) -> tuple[dict, list[dict]]:
         e["credit"] = {
             "financial_only": round(float(probabilities[0][i]), 4),
             "augmented": round(float(probabilities[1][i]), 4),
-            "label": "Simulated event probability; not an estimated real-world PD",
+            "label": "模拟风险事件概率，不能解释为真实违约概率估计",
         }
     # Paired bootstrap on the fixed held-out set. This quantifies sampling noise within this DGP only.
     rng = np.random.default_rng(SEED)
@@ -151,7 +151,7 @@ def fit_experiment(portfolio: list[dict]) -> tuple[dict, list[dict]]:
             "train_ids": [sample[i]["enterprise_id"] for i in train],
             "test_ids": [sample[i]["enterprise_id"] for i in test],
         },
-        "limitations": "Synthetic-label experiment only. Tax/innovation effects are built into the assumed label DGP. Performance differences are not evidence of causal effects, lending validity or value in real bank data.",
-        "protocol": "One fixed stratified 70/30 enterprise-level split; StandardScaler fit on training data only; identical test enterprises; fixed C=1 and threshold=0.5; no tuning on the test set. Ten-repeat held-out permutation importance and 500 paired bootstrap draws.",
+        "limitations": "仅为合成标签实验。税收与创新效应已纳入假设的标签生成机制。性能差异不能证明因果效应、授信有效性或真实银行数据中的价值。",
+        "protocol": "固定一次企业层面的分层随机划分：70% 训练、30% 测试；StandardScaler 仅拟合训练数据；两个模型使用同一测试样本；C=1，阈值=0.5；不在测试集上调参。进行 10 次测试集置换及 500 次配对自助抽样。",
     }
     return report, sample
