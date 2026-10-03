@@ -172,6 +172,8 @@ uvicorn backend.api:app --host 127.0.0.1 --port 8000
 # API 文档：http://127.0.0.1:8000/docs
 ```
 
+<a id="live-ai-mode"></a>
+
 ### 可选 Live AI 模式
 
 本地将 `.env.example` 复制为 `.env`，在服务端配置：
