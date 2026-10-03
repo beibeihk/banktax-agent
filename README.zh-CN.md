@@ -2,7 +2,7 @@
 
 **面向商业银行对公业务的企业涉税智能、科技金融识别与风险决策支持系统。**
 
-[打开公网 Demo](https://banktax-agent.hklcrgpt.chatgpt.site) · [完整英文 README](README.md) · [面试演示脚本](docs/demo-script.md)
+[打开公网 Demo](https://banktax-agent.hklcrgpt.chatgpt.site) · [完整中文 README](README.md) · [English README](README.en.md) · [面试演示脚本](docs/demo-script.md)
 
 ![客户经理工作台实机截图](docs/screenshots/dashboard.png)
 
