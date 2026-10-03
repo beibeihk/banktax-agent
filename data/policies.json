@@ -1,0 +1,260 @@
+[
+  {
+    "id": "rd-2023-7",
+    "short_title": "R&D super-deduction",
+    "policy_title": "关于进一步完善研发费用税前加计扣除政策的公告",
+    "issuer": "Ministry of Finance / State Taxation Administration",
+    "reference": "MOF / STA Announcement 2023 No. 7",
+    "publication_date": "2023-03-26",
+    "effective_date": "2023-01-01",
+    "expiry_date": null,
+    "policy_type": "Corporate income tax",
+    "jurisdiction": "National",
+    "applicable_entities": [
+      "Eligible resident enterprises undertaking R&D"
+    ],
+    "conditions": [
+      "Eligible R&D activities and expense categories; excluded industries remain excluded under Cai Shui [2015] 119.",
+      "Maintain project records and separate R&D expense accounts; accounting R&D is not automatically eligible tax R&D."
+    ],
+    "benefits": "An additional 100% deduction of eligible expensed R&D; eligible intangible assets amortized at 200% of cost.",
+    "original_source": "https://fgk.chinatax.gov.cn/zcfgk/c102416/c5201978/content.html",
+    "summary": "A potential R&D deduction opportunity. Eligibility and expense reconciliation require human review.",
+    "keywords": [
+      "研发",
+      "rd",
+      "r&d",
+      "deduction",
+      "加计扣除",
+      "科技",
+      "深圳",
+      "ai",
+      "software"
+    ],
+    "source_kind": "Official policy",
+    "verified_on": "2026-10-03"
+  },
+  {
+    "id": "high-tech-cit",
+    "short_title": "High-tech enterprise CIT",
+    "policy_title": "高新技术企业减按15％税率征收企业所得税（官方政策指引）",
+    "issuer": "State Taxation Administration",
+    "reference": "Enterprise Income Tax Law, Article 28(2); Guo Ke Fa Huo [2016] 32",
+    "publication_date": "2021-08-10",
+    "effective_date": "2008-01-01",
+    "expiry_date": null,
+    "policy_type": "Corporate income tax",
+    "jurisdiction": "National",
+    "applicable_entities": [
+      "Certified high-tech enterprises"
+    ],
+    "conditions": [
+      "Valid high-tech qualification and compliance with continuing recognition requirements.",
+      "Technology personnel, multi-year R&D ratios, IP, qualifying product revenue and other conditions all require verification."
+    ],
+    "benefits": "Qualifying high-tech enterprises apply a 15% CIT rate.",
+    "original_source": "https://www.chinatax.gov.cn/chinatax/c101915/c5167710/content.html",
+    "summary": "Recognition is a prerequisite; an innovation score cannot establish legal eligibility.",
+    "keywords": [
+      "高新",
+      "high-tech",
+      "cit",
+      "所得税",
+      "科技",
+      "深圳"
+    ],
+    "source_kind": "Official guidance",
+    "verified_on": "2026-10-03"
+  },
+  {
+    "id": "small-profit-2023-12",
+    "short_title": "Small low-profit enterprise relief",
+    "policy_title": "关于进一步支持小微企业和个体工商户发展有关税费政策的公告",
+    "issuer": "Ministry of Finance / State Taxation Administration",
+    "reference": "MOF / STA Announcement 2023 No. 12",
+    "publication_date": "2023-08-02",
+    "effective_date": "2023-01-01",
+    "expiry_date": "2027-12-31",
+    "policy_type": "Corporate income tax",
+    "jurisdiction": "National",
+    "applicable_entities": [
+      "Eligible small low-profit enterprises"
+    ],
+    "conditions": [
+      "Annual taxable income ≤ RMB 3m; employees ≤ 300; total assets ≤ RMB 50m; not in restricted/prohibited industries.",
+      "Employee and asset tests use the prescribed annual quarterly averages; year-end values only support preliminary screening."
+    ],
+    "benefits": "25% of taxable income is taxed at 20%, equivalent to a 5% effective rate for qualifying income.",
+    "original_source": "https://fgk.chinatax.gov.cn/zcfgk/c102416/c5210453/content.html",
+    "summary": "Book profit is not taxable income. This system screens candidates and asks for quarterly-average evidence.",
+    "keywords": [
+      "小微",
+      "小型微利",
+      "small",
+      "cit",
+      "所得税"
+    ],
+    "source_kind": "Official policy",
+    "verified_on": "2026-10-03"
+  },
+  {
+    "id": "manufacturing-vat-43",
+    "short_title": "Advanced manufacturing VAT credit",
+    "policy_title": "关于先进制造业企业增值税加计抵减政策的公告",
+    "issuer": "Ministry of Finance / State Taxation Administration",
+    "reference": "MOF / STA Announcement 2023 No. 43",
+    "publication_date": "2023-09-03",
+    "effective_date": "2023-01-01",
+    "expiry_date": "2027-12-31",
+    "policy_type": "Value-added tax",
+    "jurisdiction": "National",
+    "applicable_entities": [
+      "Listed advanced manufacturing general VAT taxpayers"
+    ],
+    "conditions": [
+      "Manufacturing general taxpayers with high-tech qualification AND inclusion in the competent authority's approved list.",
+      "Use eligible deductible input VAT; export/cross-border attributable input VAT is excluded; reconcile carryovers."
+    ],
+    "benefits": "Additional VAT credit of 5% of eligible deductible input VAT, subject to policy rules.",
+    "original_source": "https://fgk.chinatax.gov.cn/zcfgk/c102416/c5212095/content.html",
+    "summary": "High-tech status alone is insufficient. Approved-list status is a separate evidence requirement.",
+    "keywords": [
+      "制造",
+      "manufacturing",
+      "vat",
+      "增值税",
+      "加计抵减"
+    ],
+    "source_kind": "Official policy",
+    "verified_on": "2026-10-03"
+  },
+  {
+    "id": "small-vat-2026-10",
+    "short_title": "2026 small-scale VAT transition",
+    "policy_title": "关于增值税法施行后增值税优惠政策衔接事项的公告（小规模纳税人部分）",
+    "issuer": "Ministry of Finance / State Taxation Administration",
+    "reference": "MOF / STA Announcement 2026 No. 10, Sections I and III(3)(6)",
+    "publication_date": "2026-01-30",
+    "effective_date": "2026-01-01",
+    "expiry_date": "2027-12-31",
+    "policy_type": "Value-added tax",
+    "jurisdiction": "National",
+    "applicable_entities": [
+      "Eligible small-scale VAT taxpayers"
+    ],
+    "conditions": [
+      "Monthly/quarterly/transaction taxation periods have distinct thresholds; special invoice and waiver rules need review.",
+      "The 1% concession covers specified 3%-levy transactions, excluding sale/lease of immovable property and transfer of land use rights."
+    ],
+    "benefits": "Monthly RMB 100k / quarterly RMB 300k / per-day RMB 1k thresholds; eligible 3%-levy transactions reduced to 1% during 2026–2027.",
+    "original_source": "https://fgk.chinatax.gov.cn/zcfgk/c102416/c5247434/content.html",
+    "summary": "A 2026 forward-looking opportunity; not applied retrospectively to FY2025 enterprise tax records.",
+    "keywords": [
+      "小规模",
+      "small-scale",
+      "vat",
+      "增值税",
+      "2026"
+    ],
+    "source_kind": "Official policy",
+    "verified_on": "2026-10-03"
+  },
+  {
+    "id": "sz-recognition-2026",
+    "short_title": "Shenzhen high-tech recognition",
+    "policy_title": "深圳市工业和信息化局关于开展2026年高新技术企业认定工作的通知",
+    "issuer": "Shenzhen Industry and Information Technology Bureau",
+    "reference": "2026 recognition notice",
+    "publication_date": "2026-06-18",
+    "effective_date": "2026-06-18",
+    "expiry_date": "2026-09-04",
+    "policy_type": "Innovation qualification",
+    "jurisdiction": "Shenzhen",
+    "applicable_entities": [
+      "Shenzhen enterprises seeking high-tech recognition"
+    ],
+    "conditions": [
+      "Technology personnel ≥10%; three-year R&D/sales ratios ≥5%, 4% or 3% by latest sales size.",
+      "Domestic R&D ≥60%; qualifying product/service revenue ≥60%; IP, innovation evaluation and other conditions apply.",
+      "Published application batches closed 6 July, 3 August and 4 September 2026 (18:00). Current availability must not be inferred."
+    ],
+    "benefits": "Recognition process supporting access to qualifying high-tech tax treatment; not a cash grant.",
+    "original_source": "https://www.sz.gov.cn/cn/xxgk/zfxxgj/tzgg/content/mpost_12850471.html",
+    "summary": "Archived notice: the final published application batch closed on 4 September 2026. Retained for recognition-readiness research; not a current application opportunity.",
+    "keywords": [
+      "深圳",
+      "shenzhen",
+      "认定",
+      "高新",
+      "科技",
+      "rd"
+    ],
+    "source_kind": "Official notice",
+    "verified_on": "2026-10-03"
+  },
+  {
+    "id": "sz-tech-finance-2025",
+    "short_title": "Shenzhen technology finance direction",
+    "policy_title": "深圳市发布科技金融行动方案：15条措施支持未来产业高质量发展",
+    "issuer": "Shenzhen Municipal Government portal (official report of eight-department action plan)",
+    "reference": "Official report, 8 April 2025",
+    "publication_date": "2025-04-08",
+    "effective_date": null,
+    "expiry_date": null,
+    "policy_type": "Technology finance",
+    "jurisdiction": "Shenzhen",
+    "applicable_entities": [
+      "Technology enterprises and financing institutions"
+    ],
+    "conditions": [
+      "Directional financing framework, not an entitlement or lending approval.",
+      "Confirm current product availability, project lists, lender criteria and any programme-specific deadlines."
+    ],
+    "benefits": "Encourages technology investment financing and better coordination of equity and credit services.",
+    "original_source": "https://www.sz.gov.cn/cn/zjsz/fwts_1_3/yxhjjc/content/post_12111526.html",
+    "summary": "Use innovation evidence to start a financing-needs discussion, subject to independent diligence.",
+    "keywords": [
+      "深圳",
+      "shenzhen",
+      "科技金融",
+      "financing",
+      "tech finance",
+      "创新"
+    ],
+    "source_kind": "Official report / directional only",
+    "verified_on": "2026-10-03"
+  },
+  {
+    "id": "gd-bank-tax-2026",
+    "short_title": "Guangdong bank–tax collaboration",
+    "policy_title": "“税银携手 以信赋能”——广东举办“银税互动”合作签约仪式",
+    "issuer": "State Taxation Administration, Guangdong Provincial Tax Service",
+    "reference": "Official cooperation report, 23 September 2026",
+    "publication_date": "2026-09-23",
+    "effective_date": null,
+    "expiry_date": null,
+    "policy_type": "Bank–tax collaboration",
+    "jurisdiction": "Guangdong",
+    "applicable_entities": [
+      "Enterprises discussing bank–tax financing"
+    ],
+    "conditions": [
+      "An official collaboration report, not a statutory eligibility or guaranteed loan rule.",
+      "Enterprise-authorized data sharing, lender product criteria and independent credit review are required."
+    ],
+    "benefits": "Tax-credit information can support conversations about inclusive financing.",
+    "original_source": "https://guangdong.chinatax.gov.cn/gdsw/zjsw_tpxw/2026-09/23/content_7cfc9ea325f94b2495f5f594e80fdc64.shtml",
+    "summary": "A relationship-manager lead for verification; no approved borrowing amount is inferred.",
+    "keywords": [
+      "广东",
+      "guangdong",
+      "银税",
+      "bank-tax",
+      "tax credit",
+      "纳税信用",
+      "financing"
+    ],
+    "source_kind": "Official report / directional only",
+    "verified_on": "2026-10-03"
+  }
+]
